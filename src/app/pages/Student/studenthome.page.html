@@ -1,0 +1,10 @@
+<h1>Student here....</h1>
+<div [hidden]="status=='S002'">
+    <input type="text" [(ngModel)]="Studentname"/>
+    <div class="clearfix">&nbsp;</div>
+    <input type="button" value="Take Test" (click)="routgen()">
+</div>
+<div [hidden]="status=='S001'">
+<h3>please check with the quiz code</h3>
+
+</div>

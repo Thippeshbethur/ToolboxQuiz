@@ -1,0 +1,12 @@
+<h2 mat-dialog-title>Publish Quiz</h2>
+<mat-dialog-content class="mat-typography">
+ <mat-label>Choose a date</mat-label>
+  <input matInput [matDatepicker]="picker1">
+  <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+  <mat-datepicker #picker1></mat-datepicker> 
+</mat-dialog-content>
+<h1>{{date}}</h1>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Install</button>
+</mat-dialog-actions>

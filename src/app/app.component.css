@@ -1,0 +1,35 @@
+li.link-active a,
+li.link-active a:hover,
+li.link-active a:focus {
+  background-color: #4189C7;
+  color: white;
+  height: 2%;
+}
+
+td span {
+    cursor: pointer;
+  }
+  .container{
+    max-width: 100% !important;
+  }
+  .brd_btm{
+    border-bottom: 1px solid;
+  }
+  .brd_tp{
+    border-top: 1px solid;
+  }
+  .navbar-nav li{
+    padding-right: 15px;
+  }
+  .navbar-nav{
+    flex-direction: row;
+  }
+  .container-fluid{
+    display: contents;
+  }
+  .navbar-header{
+    max-width: 10%;
+  }
+  .svd-page-add{
+    display: none !important;
+  }
