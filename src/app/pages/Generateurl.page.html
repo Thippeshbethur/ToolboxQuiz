@@ -1,0 +1,13 @@
+<h3>Generate Url</h3>
+<div class="clearfix">&nbsp;</div>
+
+<input type="text"  value="{{url}}" #userinput readonly>
+
+<span class="material-icons" (click)="copyInputMessage(userinput)" >
+  content_copy
+  </span>
+
+
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close id="closebtn">Close</button>    
+  </mat-dialog-actions>

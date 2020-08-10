@@ -3,9 +3,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Quiz } from '../../DTO/Quiz';
 import { QuizService } from '../../Service/Quizservice';
 import { Router, UrlSerializer } from "@angular/router";
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {PdfExportPage} from '../pages/pdfexport.page'
-import {Publishpage} from '../pages/publish.page'
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { PdfExportPage } from '../pages/pdfexport.page'
+import { Publishpage } from '../pages/publish.page'
+import { Genrateurlpage } from "../pages/Generateurl.page";
+import { DeleteQuizpage } from "../pages/DeleteQuiz.page";
+import { SurveyPage } from '../pages/survey.page'
+import {PageEvent} from '@angular/material/paginator';
+
 
 import CryptoJS from 'crypto-js';
 import { from } from 'rxjs';
@@ -18,25 +23,26 @@ import { from } from 'rxjs';
 export class QuizListingpage {
     Debugger;
     @Input() quiz1: Quiz;
-    
-  length = 10;
-  pageSize = 15;
-  
-  pageSizeOptions: number[] = [5, 10,15, 30, 100];
-    constructor(private router: Router, private QuizService: QuizService, private serializer: UrlSerializer,public dialog: MatDialog) {
+    dialogRef;
+    length = 10;
+    pageSize = 8;
+    pageindex=1;
+
+    pageSizeOptions: number[] = [8];
+    constructor(private router: Router, private QuizService: QuizService, private serializer: UrlSerializer, public dialog: MatDialog) {
         this.showloader();
-        
+
         this.refreshdata();
     }
     deletequiz(obj: any) {
         this.showloader();
-        var jsonobj = [
-            {
-                "id": obj
-            }];
+        this.dialogRef = this.dialog.open(DeleteQuizpage, { 'width': '30%', 'height': '30%' });
 
-        var status = this.QuizService.deletequiz(JSON.stringify(jsonobj));
-        console.log(status)
+        this.dialogRef.afterClosed().subscribe(result => {
+            this.refreshdata();
+            //this.animal = result;
+        });
+        localStorage.setItem("quizid1",CryptoJS.AES.encrypt(obj, 'q').toString());
         this.refreshdata();
     }
     publishquiz(obj: any) {
@@ -46,45 +52,78 @@ export class QuizListingpage {
                 "id": obj
             }];
         this.QuizService.publishquiz(JSON.stringify(jsonobj))
-        .subscribe(data => {
-          console.log(JSON.parse(JSON.stringify(data))['status']);
-        });;
-        
+            .subscribe(data => {
+                console.log(JSON.parse(JSON.stringify(data))['status']);
+            });;
+
         this.refreshdata();
     }
-    editquiz(obj:any){
-        var encryptedval=CryptoJS.AES.encrypt(obj.trim(), 'q').toString();
+    editquiz(obj: any) {
+        console.log(new Date());
+        var encryptedval = CryptoJS.AES.encrypt(obj.trim(), 'q').toString();
         var jsonobj = [
             {
                 "id": obj,
-                "ispublished":0
+                "Isedit": 1
             }];
-            this.QuizService.getquizdatabyid(JSON.stringify(jsonobj))
-              .subscribe(data =>data);
-              setTimeout(() => {
-                this.router.navigate(["creator"], { queryParams: { qid: encryptedval } })
-              }, 250);
+        this.QuizService.getquizretdatabyid(JSON.stringify(jsonobj))
+            .subscribe(data => {localStorage.setItem("editjson",JSON.stringify(data))});
+        setTimeout(() => {
+            this.router.navigate(["creator"], { queryParams: { qid: encryptedval } })
+        }, 100);
     }
     generatequiz(obj: any) {
-        this.showloader();
-        this.router.navigate(["" + obj]);
-        this.refreshdata();
+
+        localStorage.setItem('quizid', obj);
+        this.dialogRef = this.dialog.open(Genrateurlpage, { 'width': '30%', 'height': '30%' });
+
+        this.dialogRef.afterClosed().subscribe(result => {
+            console.log('The dialog was closed');
+            //this.animal = result;
+        });
+    }
+    Preview(obj:any){
+        var jsonobj = [
+            {
+                "id": obj,
+            }];
+        this.QuizService.getquizretdatabyid(JSON.stringify(jsonobj))
+            .subscribe(data => localStorage.setItem("jsondata",JSON.stringify(data)));
+            setTimeout(()=>{
+                this.dialogRef = this.dialog.open(SurveyPage, { 'width': '90%', 'height': '90%' });
+
+                this.dialogRef.afterClosed().subscribe(result => {
+                    console.log('The dialog was closed');
+                    localStorage.setItem("jsondata","");
+                    //this.animal = result;
+                });
+            },100)
     }
     refreshdata() {
-        setTimeout (() => {
-        this.QuizService.getquiz().subscribe(res => this.quiz1 = res);
-        
-        this.hideloader();
-    }, 1000);
+        setTimeout(() => {
+            this.QuizService.getquiz(this.pageindex,this.pageSize).subscribe(res => {
+                this.quiz1 = res;
+                if(res.length>0){
+                    this.length=(res[0]["totolrows"])
+                }else{
+                    this.length=0;
+                }
+                });
+
+            this.hideloader();
+        }, 100);
     }
-    openDialog(): void {
-        const dialogRef = this.dialog.open(Publishpage,{'width':'70%','height':'90%'});
-    
-        dialogRef.afterClosed().subscribe(result => {
-          console.log('The dialog was closed');
-          //this.animal = result;
-        });
+    onNoClick(): void {
+        this.dialogRef.close();
       }
+    openDialog(): void {
+        this.dialogRef = this.dialog.open(Publishpage, { 'width': '40%', 'height': '50%' });
+
+        this.dialogRef.afterClosed().subscribe(result => {
+            console.log('The dialog was closed');
+            //this.animal = result;
+        });
+    }
     hideloader() {
 
         // Setting display of spinner 
@@ -98,6 +137,13 @@ export class QuizListingpage {
         // element to none 
         document.getElementById('loading')
             .style.display = 'block';
+    }
+    pageEvent: PageEvent;
+
+    onPaginateChange(obj){
+        this.pageindex=obj["pageIndex"]+1;
+        this.QuizService.getquiz(obj["pageIndex"]+1,this.pageSize).subscribe(res => {this.quiz1 = res;this.length=(res[0]["totolrows"])});
+        
     }
 
 }

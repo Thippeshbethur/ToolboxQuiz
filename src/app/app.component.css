@@ -3,9 +3,25 @@ li.link-active a:hover,
 li.link-active a:focus {
   background-color: #4189C7;
   color: white;
-  height: 2%;
+  height: auto;
+  padding: 10px;
+  border-radius: 20px;
 }
-
+.avatar {
+  width: 40px;
+  min-width: 40px;
+  height: 40px;
+  line-height: 40px;
+  margin: 0 8px 0 0;
+  border-radius: 50%;
+  font-size: 17px;
+  font-weight: 600;
+  text-align: center;
+}
+.mr-12{
+  margin-right: 12px;
+  margin-left: 8px;
+}
 td span {
     cursor: pointer;
   }
@@ -33,3 +49,20 @@ td span {
   .svd-page-add{
     display: none !important;
   }
+  .mat-paginator{
+    margin-top: 10px;
+    background: cadetblue;
+    color: white;
+  }
+  .material-icons{
+    cursor: pointer;
+  }
+  .navbar-dark .navbar-nav .nav-link {
+    color: white;
+}
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+}

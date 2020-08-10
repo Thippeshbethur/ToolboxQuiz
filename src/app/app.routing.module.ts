@@ -10,6 +10,7 @@ import {  StudenthomePage } from "./pages/Student/studenthome.page";
 import {  StudentQuizPage } from "./pages/Student/StudentQuiz.page";
 
 const routes: Routes = [
+  { path: "", component: HomePage },
   { path: "home", component: HomePage },
   { path: "survey", component: SurveyPage },
   { path: "creator", component: CreatorPage },

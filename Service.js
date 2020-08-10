@@ -2,7 +2,7 @@ var express = require('express');
 var app = express();
 var fs = require("fs");
 var MongoClient = require('mongodb').MongoClient;
-var url = "mongodb://localhost:27017/";
+var url = "mongodb://localhost:27017/ToolBoxQuiz";
 var database;
 var bodyParser = require('body-parser');
 app.use(bodyParser.json());
@@ -16,34 +16,40 @@ MongoClient.connect(url, function (err, db) {
   if (err) throw err;
   database = db;
   var dbo = db.db("ToolBoxQuiz");
-  dbo.createCollection("QuizQuestion", function (err, res) {
-    if (err) throw err;
-    console.log("Collection created!");
-  });
+
 });
-app.post('/updatejsondata', function (req, res) {
+app.post('/updatejsondata', function (req, resp) {
 
   var dbo = database.db("ToolBoxQuiz");
-  
+
   var data = JSON.stringify(req.body).trim();
   var quiztitle = JSON.parse(data)['json']['pages'][0]['title'];
   var quiztitledesc = JSON.parse(data)['json']['pages'][0]['description'];
-  var myquery = {'id':JSON.parse(data)['quizid']};
+  var myquery = {
+    'id': JSON.parse(data)['quizid']
+  };
   console.log(JSON.parse(data)['json']);
-  var newvalues = { $set:{"quizname":quiztitle,"quiztitledesc":quiztitledesc,"json":JSON.stringify(JSON.parse(data)['json'])}};
-  dbo.collection("QuizQuestion").updateOne(myquery, newvalues, function(err, res) {
+  var newvalues = {
+    $set: {
+      "quizname": quiztitle,
+      "quiztitledesc": quiztitledesc,
+      "json": JSON.stringify(JSON.parse(data)['json'])
+    }
+  };
+  dbo.collection("QuizQuestion").updateOne(myquery, newvalues, function (err, res) {
     if (err) throw err;
+    resp.send({
+      status: "S001"
+    });
     console.log("1 document updated");
   });
-  fs.writeFile(__dirname + "/src/assets/" + "survey.json", JSON.stringify(JSON.parse(data)['json']), function (err) {
-    if (err) throw err;
-  });
+  // fs.writeFile(__dirname + "/src/assets/" + "survey.json", JSON.stringify(JSON.parse(data)['json']), function (err) {
+  //   if (err) throw err;
+  // });
 })
 
 app.post('/putjsondata', function (req, res) {
-  fs.writeFile(__dirname + "/src/assets/" + "survey.json", JSON.stringify(req.body), function (err) {
-    if (err) throw err;
-  });
+ 
   var dbo = database.db("ToolBoxQuiz");
   var data = JSON.stringify(req.body).trim();
   let coll = dbo.collection('QuizQuestion');
@@ -58,7 +64,8 @@ app.post('/putjsondata', function (req, res) {
     json: data,
     quizname: quiztitle,
     quiztitledesc: quiztitledesc,
-    ispublished: 0
+    ispublished: 0,
+    Isedit: 1
   };
   dbo.collection("QuizQuestion").insertOne(myobj, function (err) {
     if (err) throw err;
@@ -70,9 +77,21 @@ app.post('/putjsondata', function (req, res) {
 });
 app.get('/getjsondata', function (req, res) {
   var dbo = database.db("ToolBoxQuiz");
+  var pageNo = parseInt(req.query.pageNo)
+  var size = parseInt(req.query.size)
+  var query = {};
+  query.skip = size * (pageNo - 1)
+  query.limit = size
+  var mysort = { ispublished: 1 ,quizname:-1}; 
   var collection = dbo.collection('QuizQuestion');
-  return collection.find({}).toArray(function (err, result) {
-    res.send(result);
+  return collection.find({},query).sort(mysort).toArray(function (err, result) {
+    collection.find({}).toArray(function (err, result1) {
+      if(result1.length>0){
+        result[0].totolrows=result1.length;
+      }
+      res.send(result); 
+    });
+       
   });
 });
 app.post('/getstatusbyid', function (req, res) {
@@ -102,6 +121,18 @@ app.post('/getjsondataby', function (req, res) {
       if (err) throw err;
     });
     res.send(result);
+
+  });
+});
+app.post('/getretjsondataby', function (req, res) {
+  var dbo = database.db("ToolBoxQuiz");
+  var collection = dbo.collection('QuizQuestion');
+
+  var objv = JSON.parse(JSON.stringify(req.body));
+  return collection.find(objv[0]).toArray(function (err, result) {
+    console.log(result)
+
+    res.send(result[0]['json']);
 
   });
 });
@@ -149,18 +180,34 @@ app.post('/putstudentdata', function (req, res) {
     studentname: studentname,
     issubmitted: 0
   };
-  dbo.collection("Studentdata").find({'studentname': studentname,'Quizid':Quizid},{$exists: true}
-  ).toArray(function (err, doc) //find if a value exists
+  var updatequiz={
+    id: Quizid
+  }
+  dbo.collection("Studentdata").find({
+    'studentname': studentname,
+    'Quizid': Quizid
+  }, {
+    $exists: true
+  }).toArray(function (err, doc) //find if a value exists
     {
       console.log(doc)
-      if (doc!='') //if it does
-      {   
+      if (doc != '') //if it does
+      {
         res.send({
           status: "S002"
-        });     
-        
-      } else  // if it does not 
-      {
+        });
+
+      } else // if it does not 
+      {        
+        var newvalues = {
+          $set: {
+            "Isedit": 0,
+          }
+        };
+        dbo.collection("QuizQuestion").updateOne(updatequiz, newvalues, function (err, res) {
+          if (err) throw err;
+          console.log("1 document updated");
+        });
         dbo.collection("Studentdata").insertOne(myobj, function (err) {
           if (err) throw err;
           res.send({
@@ -170,7 +217,7 @@ app.post('/putstudentdata', function (req, res) {
         }); // print out what it sends back
       }
     });
-  
+
 });
 app.get('/index', function (req, res) {
   fs.readFile(__dirname + "/" + "index.html", 'utf8', function (err, data) {

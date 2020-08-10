@@ -14,8 +14,8 @@ export class QuizService {
 
     constructor(
         private http: HttpClient) { }
-    public getquiz(): Observable<Quiz> {
-        return this.http.get<Quiz>("http://localhost:8081/getjsondata", { responseType: 'json' }
+    public getquiz(pageno,pagesize): Observable<Quiz> {
+        return this.http.get<Quiz>("http://localhost:8081/getjsondata?pageNo="+pageno+"&size="+pagesize, { responseType: 'json' }
         );
     }
     public addjsondata(obj){
@@ -24,11 +24,6 @@ export class QuizService {
         .set('Content-Type', 'application/json');
         return this.http.post("http://localhost:8081/putjsondata", obj, {
             headers: headers
-          })
-          .subscribe(data => {
-            if (Response) { 
-                // this.hideloader(); 
-            } 
           });
     }
     public updatejsondata(obj){
@@ -46,11 +41,6 @@ export class QuizService {
         return this.http.post("http://localhost:8081/deletejsondata", obj, {
             headers: headers
           })
-          .subscribe(data => {
-            if (Response) { 
-                // this.hideloader(); 
-            } 
-          });
     }
     public getquizbyid(obj) {
         const headers = new HttpHeaders()
@@ -65,6 +55,14 @@ export class QuizService {
         .set('Authorization', 'my-auth-token')
         .set('Content-Type', 'application/json');
         return this.http.post("http://localhost:8081/getjsondataby", obj, {
+            headers: headers
+          });
+    }
+    public getquizretdatabyid(obj) {
+        const headers = new HttpHeaders()
+        .set('Authorization', 'my-auth-token')
+        .set('Content-Type', 'application/json');
+        return this.http.post("http://localhost:8081/getretjsondataby", obj, {
             headers: headers
           });
     }

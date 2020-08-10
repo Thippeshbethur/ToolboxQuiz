@@ -1,5 +1,4 @@
 
-<h1>quiz listing</h1>
 <div class="container ">
   <div class="row p-2 brd_btm brd_tp ">
     <div class="col-sm border border-dark">
@@ -23,6 +22,9 @@
     <div class="col-sm border border-dark">
       Publish
     </div>
+    <div class="col-sm border border-dark">
+      Preview
+    </div>
   </div>
   <div class="row p-2 brd_btm" *ngFor="let item of quiz1"> 
     <div class="col-sm border border-dark">
@@ -35,30 +37,34 @@
       {{item.quiztitledesc}}
     </div>
     <div class="col-sm border border-dark" >
-      <span class="material-icons border" (click)="editquiz(item.id)" [hidden]="item.ispublished" title="edit">edit</span>
+      <span class="material-icons" (click)="editquiz(item.id)" [hidden]="!item.Isedit" title="edit">edit</span>
     </div>
     <div class="col-sm border border-dark">
-      <span class="material-icons" (click)="deletequiz(item.id)" title="Delete">delete_forever</span>
+      <span class="material-icons" (click)="deletequiz(item.id)" [hidden]="!item.Isedit" title="Delete">delete_forever</span>
     </div>
     <div class="col-sm border border-dark">
       <span class="material-icons" (click)="generatequiz(item.id)" title="Generate URL">
         link
         </span>
     </div>
-    <div class="col-sm border border-dark" (click)="openDialog()">
-      <span class="material-icons" (click)="publishquiz(item.id)" [hidden]="item.ispublished" title="Publish">
+    <div class="col-sm border border-dark" >
+      <span class="material-icons" (click)="publishquiz(item.id)" [hidden]="item.ispublished" (click)="openDialog()" title="Publish">
         cloud_upload
         </span>
-        <span class="material-icons" (click)="publishquiz(item.id)" [hidden]="!item.ispublished" title="Publised">
+        <span class="material-icons" (click)="publishquiz(item.id)" [hidden]="!item.ispublished"  title="Publised">
           cloud
           </span>
+    </div>
+    <div class="col-sm border border-dark">
+      <span class="material-icons" (click)="Preview(item.id)" title="Generate URL">
+        play_circle_filled
+        </span>
     </div>
   </div>
 </div>
 
-
-
-<!-- <mat-paginator [length]="length"
-[pageSize]="pageSize"
-[pageSizeOptions]="pageSizeOptions">
-</mat-paginator> -->
+<mat-paginator [length]="length"
+               [pageSize]="pageSize"
+               [pageSizeOptions]="pageSizeOptions"
+               (page)="pageEvent = $event; onPaginateChange($event)">
+</mat-paginator>

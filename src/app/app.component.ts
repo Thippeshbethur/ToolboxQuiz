@@ -8,7 +8,18 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
   title = "ToolBox Quiz";
+  
+  Studentroute;
+  username=localStorage.getItem('studname')
   constructor(public router: Router) {
-  //  this.router.navigate(['home']);
+  console.log(router.url);
+  setTimeout(()=>{
+    this.Studentroute='/'+localStorage.getItem("quizid")
+  },500)
+  }
+  logout(){
+    this.router.navigate(["/"+localStorage.getItem("quizid")]); 
+    localStorage.clear();
+    
   }
 }

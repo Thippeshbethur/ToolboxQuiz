@@ -3,6 +3,7 @@ import { Router, UrlSerializer } from "@angular/router";
 import { QuizService } from '../../../Service/Quizservice';
 
 import {MatSnackBar} from '@angular/material/snack-bar';
+import CryptoJS from 'crypto-js';
 
 @Component({
     selector: "Studenthome-page",
@@ -14,11 +15,14 @@ export class StudenthomePage {
     Studentstatus: any;
     quizid: any;
     Studentname: any = '';
+    Studentroute;
+    disabled=true
     constructor(private QuizService: QuizService, private router: Router, private _snackBar: MatSnackBar) {
-
-        var quizid = this.router.url;
-        var valufin = quizid.replace('/', '');
+        localStorage.clear()
+        var quizid1 = this.router.url;
+        var valufin = quizid1.replace('/', '');
         this.quizid = valufin;
+        localStorage.setItem("quizid",valufin);
         var jsonobj = [
             {
                 "id": valufin,
@@ -44,7 +48,6 @@ export class StudenthomePage {
         else {
             this._snackBar.open("Please enter the student name", "Ok", {
                 duration: 2000,
-                panelClass: ['blue-snackbar']
             });
         }
 
@@ -52,6 +55,7 @@ export class StudenthomePage {
     }
     routequiz(obj) {
         if (obj == "S001") {
+            localStorage.setItem("studname",this.Studentname)
             var quizid = this.router.url;
 
             var valufin = quizid.split('/')[1];
@@ -62,14 +66,18 @@ export class StudenthomePage {
                 }];
             this.QuizService.getquizdatabyid(JSON.stringify(jsonobj))
                 .subscribe(data => data);
+                var encryptedval = CryptoJS.AES.encrypt(valufin.trim(), 'q').toString();
             setTimeout(() => {
-                this.router.navigate([this.quizid + "/student"], { queryParams: { page: 10 } })
+                this.router.navigate([this.quizid + "/student"], { queryParams: { Qid: encryptedval } })
             }, 250);
 
         }
         else {
-            this._snackBar.open("Please enter the different name because this name already exist", "ok", {
-                duration: 5000,
+            var snackBarRef= this._snackBar.open("Please enter the different name because this name already exist", "ok", {
+               
+            });
+            snackBarRef.onAction().subscribe(() => {
+                console.log('The snack-bar action was triggered!');
             });
         }
 

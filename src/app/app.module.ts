@@ -15,6 +15,8 @@ import { AnalyticsPage } from "./pages/analytics.page";
 import { PdfExportPage } from "./pages/pdfexport.page";
 import {  QuizListingpage } from "./pages/QuizListing.page";
 import { Publishpage  } from "./pages/publish.page";
+import { Genrateurlpage  } from "./pages/Generateurl.page";
+import { DeleteQuizpage  } from "./pages/DeleteQuiz.page";
 import {  StudenthomePage } from "./pages/Student/studenthome.page";
 import {  StudentQuizPage } from "./pages/Student/StudentQuiz.page";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -35,12 +37,12 @@ import {  MatDatepickerModule, MatNativeDateModule } from '@angular/material';
     CreatorPage,
     SurveyAnalyticsComponent,
     AnalyticsPage,
-    PdfExportPage,QuizListingpage,StudenthomePage,StudentQuizPage,Publishpage,
+    PdfExportPage,QuizListingpage,StudenthomePage,StudentQuizPage,Publishpage,Genrateurlpage,DeleteQuizpage
   ],
   imports: [BrowserModule, FormsModule, HttpClientModule, AppRoutingModule,BrowserAnimationsModule,MatTabsModule, MatMenuModule,MatPaginatorModule, MatButtonModule,MatSnackBarModule,
     FormsModule,MatDialogModule,MatInputModule,MatDatepickerModule,MatNativeDateModule,
     ReactiveFormsModule],
-    entryComponents:[Publishpage],
+    entryComponents:[Publishpage,Genrateurlpage,DeleteQuizpage],
   providers: [],
   bootstrap: [AppComponent],
 })

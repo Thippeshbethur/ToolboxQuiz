@@ -10,7 +10,11 @@ export class SurveyPage {
   json;
 
   constructor() {
-    this.json = json;
+    if(localStorage.getItem('jsondata')!=undefined){
+      this.json=localStorage.getItem('jsondata');
+    }else{
+      this.json = json;
+    }
   }
 
   sendData(result) {
