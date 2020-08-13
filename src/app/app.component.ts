@@ -8,18 +8,23 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
   title = "ToolBox Quiz";
-  
+
   Studentroute;
-  username=localStorage.getItem('studname')
+  username;
+  teachername;
   constructor(public router: Router) {
-  console.log(router.url);
-  setTimeout(()=>{
-    this.Studentroute='/'+localStorage.getItem("quizid")
-  },500)
+    this.username = localStorage.getItem('studname')
+    this.teachername=localStorage.getItem('teachername');
+    if(this.teachername==undefined &&  this.username==undefined)
+    {
+      this.logout();
+    }
+    setTimeout(() => {
+      this.Studentroute = '/' + localStorage.getItem("quizid")
+    }, 500)
   }
-  logout(){
-    this.router.navigate(["/"+localStorage.getItem("quizid")]); 
+  logout() {
+    this.router.navigate(["/"]);
     localStorage.clear();
-    
   }
 }

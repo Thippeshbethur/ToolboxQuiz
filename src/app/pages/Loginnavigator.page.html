@@ -88,32 +88,48 @@
     overflow-x: hidden;
     padding-top: 20px;
   }
-
+  .mat-card-avatar {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+.mat-icon {
+    font-size: 50px;
+    padding-left: 5px;
+    padding-right: 75px;
+}
 </style>
-
 <!------ Include the above in your HEAD tag ---------->
 
 <div class="sidenav">
   <div class="login-main-text">
-    <mat-icon class="rounded-circle border" matListAvatar [routerLink]="['/StudentdashboardPage']">arrow_back</mat-icon>
-    <div class="clearfix"></div>
-    <h2>ToolBox Quiz</h2>
-    <p>Take the Quiz from here.</p>
+    <h2>ToolBox Quiz<br></h2>
+    <p></p>
   </div>
 </div>
 <div class="main">
-  <div class="col-md-6 col-sm-12">
+  <div class="col-md-12 col-sm-12">
     <div class="login-form">
-        <div id="Logindiv">
-          <div class="form-group">
-            <h2>Quiz </h2>
-            <label>Student Name</label>
-            <input type="text" class="form-control" placeholder="Please enter Student Name"  [(ngModel)]="Studentname"  >
-          </div>          
-          <button type="submit" class="btn btn-primary mr-2" (click)="routgen()">Take Quiz</button>
-          
-        </div>
-        
+      <form>
+        <section class="darts-dark-theme">
+        <mat-card flex-gt-sm>
+            <div class="col-sm-12">
+                <div  class="col-sm-6" style="display: inline-block;" routerLink="/login">
+                    <mat-card-title>Teacher</mat-card-title>            
+                    <mat-icon matListAvatar>create</mat-icon>
+                </div>
+                <div class=" float-right" routerLink="/StudentdashboardPage">                
+                <mat-card-title>Student</mat-card-title>
+                <mat-icon matListAvatar>play_circle_outline</mat-icon>
+                </div>
+            </div>
+            <mat-divider></mat-divider>
+            <mat-card-content>
+            </mat-card-content>
+        </mat-card>
+         </section>
+      </form>
     </div>
   </div>
 </div>

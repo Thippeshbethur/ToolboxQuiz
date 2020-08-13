@@ -17,15 +17,53 @@ import {  QuizListingpage } from "./pages/QuizListing.page";
 import { Publishpage  } from "./pages/publish.page";
 import { Genrateurlpage  } from "./pages/Generateurl.page";
 import { DeleteQuizpage  } from "./pages/DeleteQuiz.page";
+import { LoginPage  } from "./pages/login.page";
+
+import { LoginNavPage  } from "./pages/Loginnavigator.page";
 import {  StudenthomePage } from "./pages/Student/studenthome.page";
 import {  StudentQuizPage } from "./pages/Student/StudentQuiz.page";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatMenuModule, MatButtonModule,MatTabsModule,MatInputModule} from '@angular/material'
 import {ReactiveFormsModule} from '@angular/forms';
-import {MatPaginatorModule} from '@angular/material/paginator';
-import { MatSnackBarModule } from "@angular/material";
-import {MatDialogModule} from "@angular/material";
-import {  MatDatepickerModule, MatNativeDateModule } from '@angular/material';
+import { StudentdashboardPage } from "./pages/Student/Studentdashboard.page";
+import {
+  MatAutocompleteModule,
+  MatButtonModule,
+  MatButtonToggleModule,
+  MatCardModule,
+  MatCheckboxModule,
+  MatChipsModule,
+  MatCommonModule,
+  MatDatepickerModule,
+  MatDialogModule,
+  MatDividerModule,
+  MatExpansionModule,
+  MatFormFieldModule,
+  MatGridListModule,
+  MatIconModule,
+  MatInputModule,
+  MatLineModule,
+  MatListModule,
+  MatMenuModule,
+  MatNativeDateModule,
+  MatOptionModule,
+  MatPaginatorModule,
+  MatProgressBarModule,
+  MatProgressSpinnerModule,
+  MatPseudoCheckboxModule,
+  MatRadioModule,
+  MatRippleModule,
+  MatSelectModule,
+  MatSidenavModule,
+  MatSliderModule,
+  MatSlideToggleModule,
+  MatSnackBarModule,
+  MatSortModule,
+  MatStepperModule,
+  MatTableModule,
+  MatTabsModule,
+  MatToolbarModule,
+  MatTooltipModule,
+} from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -36,11 +74,47 @@ import {  MatDatepickerModule, MatNativeDateModule } from '@angular/material';
     SurveyCreatorComponent,
     CreatorPage,
     SurveyAnalyticsComponent,
-    AnalyticsPage,
+    AnalyticsPage,LoginNavPage,LoginPage,StudentdashboardPage,
     PdfExportPage,QuizListingpage,StudenthomePage,StudentQuizPage,Publishpage,Genrateurlpage,DeleteQuizpage
   ],
-  imports: [BrowserModule, FormsModule, HttpClientModule, AppRoutingModule,BrowserAnimationsModule,MatTabsModule, MatMenuModule,MatPaginatorModule, MatButtonModule,MatSnackBarModule,
-    FormsModule,MatDialogModule,MatInputModule,MatDatepickerModule,MatNativeDateModule,
+  imports: [BrowserModule, FormsModule, HttpClientModule, AppRoutingModule,BrowserAnimationsModule,
+    MatAutocompleteModule,
+    MatButtonModule,
+    MatButtonToggleModule,
+    MatCardModule,
+    MatCheckboxModule,
+    MatChipsModule,
+    MatCommonModule,
+    MatDatepickerModule,
+    MatDialogModule,
+    MatDividerModule,
+    MatExpansionModule,
+    MatFormFieldModule,
+    MatGridListModule,
+    MatIconModule,
+    MatInputModule,
+    MatLineModule,
+    MatListModule,
+    MatMenuModule,
+    MatNativeDateModule,
+    MatOptionModule,
+    MatPaginatorModule,
+    MatProgressBarModule,
+    MatProgressSpinnerModule,
+    MatPseudoCheckboxModule,
+    MatRadioModule,
+    MatRippleModule,
+    MatSelectModule,
+    MatSidenavModule,
+    MatSlideToggleModule,
+    MatSliderModule,
+    MatSnackBarModule,
+    MatSortModule,
+    MatStepperModule,
+    MatTableModule,
+    MatTabsModule,
+    MatToolbarModule,
+    MatTooltipModule,
     ReactiveFormsModule],
     entryComponents:[Publishpage,Genrateurlpage,DeleteQuizpage],
   providers: [],

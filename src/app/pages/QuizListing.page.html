@@ -1,6 +1,6 @@
 
 <div class="container ">
-  <div class="row p-2 brd_btm brd_tp ">
+  <div class="row p-2 brd_btm brd_tp font-weight-bold">
     <div class="col-sm border border-dark">
       Quiz Id
     </div>
@@ -48,10 +48,10 @@
         </span>
     </div>
     <div class="col-sm border border-dark" >
-      <span class="material-icons" (click)="publishquiz(item.id)" [hidden]="item.ispublished" (click)="openDialog()" title="Publish">
+      <span class="material-icons" [hidden]="item.ispublished" (click)="openDialog(item.id)" title="Publish">
         cloud_upload
         </span>
-        <span class="material-icons" (click)="publishquiz(item.id)" [hidden]="!item.ispublished"  title="Publised">
+        <span class="material-icons"  [hidden]="!item.ispublished"  title="Publised">
           cloud
           </span>
     </div>
@@ -63,7 +63,7 @@
   </div>
 </div>
 
-<mat-paginator [length]="length"
+<mat-paginator class="font-weight-bold" [length]="length"
                [pageSize]="pageSize"
                [pageSizeOptions]="pageSizeOptions"
                (page)="pageEvent = $event; onPaginateChange($event)">

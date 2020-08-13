@@ -27,16 +27,26 @@ export class QuizListingpage {
     length = 10;
     pageSize = 8;
     pageindex=1;
-
+    teachername;
+    teacherid
     pageSizeOptions: number[] = [8];
     constructor(private router: Router, private QuizService: QuizService, private serializer: UrlSerializer, public dialog: MatDialog) {
-        this.showloader();
-
-        this.refreshdata();
+        this.teachername = localStorage.getItem('teachername');
+        if (this.teachername == undefined) {
+            this.logout();
+        }
+        else{
+            this.teacherid=localStorage.getItem("Td");
+            this.refreshdata()
+        }
+    }
+    logout() {
+        this.router.navigate(["/"]);
+        localStorage.clear();
     }
     deletequiz(obj: any) {
         this.showloader();
-        this.dialogRef = this.dialog.open(DeleteQuizpage, { 'width': '30%', 'height': '30%' });
+        this.dialogRef = this.dialog.open(DeleteQuizpage, { 'width': '90%', 'height': '90%' });
 
         this.dialogRef.afterClosed().subscribe(result => {
             this.refreshdata();
@@ -45,19 +55,12 @@ export class QuizListingpage {
         localStorage.setItem("quizid1",CryptoJS.AES.encrypt(obj, 'q').toString());
         this.refreshdata();
     }
-    publishquiz(obj: any) {
-        this.showloader();
-        var jsonobj = [
-            {
-                "id": obj
-            }];
-        this.QuizService.publishquiz(JSON.stringify(jsonobj))
-            .subscribe(data => {
-                console.log(JSON.parse(JSON.stringify(data))['status']);
-            });;
+    // publishquiz(obj: any) {
+    //     this.showloader();
+        
 
-        this.refreshdata();
-    }
+    //     this.refreshdata();
+    // }
     editquiz(obj: any) {
         console.log(new Date());
         var encryptedval = CryptoJS.AES.encrypt(obj.trim(), 'q').toString();
@@ -75,7 +78,7 @@ export class QuizListingpage {
     generatequiz(obj: any) {
 
         localStorage.setItem('quizid', obj);
-        this.dialogRef = this.dialog.open(Genrateurlpage, { 'width': '30%', 'height': '30%' });
+        this.dialogRef = this.dialog.open(Genrateurlpage, { 'width': '90%', 'height': '90%' });
 
         this.dialogRef.afterClosed().subscribe(result => {
             console.log('The dialog was closed');
@@ -101,8 +104,9 @@ export class QuizListingpage {
     }
     refreshdata() {
         setTimeout(() => {
-            this.QuizService.getquiz(this.pageindex,this.pageSize).subscribe(res => {
+            this.QuizService.getquiz(this.pageindex,this.pageSize,this.teacherid).subscribe(res => {
                 this.quiz1 = res;
+                
                 if(res.length>0){
                     this.length=(res[0]["totolrows"])
                 }else{
@@ -116,12 +120,12 @@ export class QuizListingpage {
     onNoClick(): void {
         this.dialogRef.close();
       }
-    openDialog(): void {
-        this.dialogRef = this.dialog.open(Publishpage, { 'width': '40%', 'height': '50%' });
+    openDialog(obj): void {
+        localStorage.setItem("qid",obj);
+        this.dialogRef = this.dialog.open(Publishpage, { 'width': '90%', 'height': '90%' });
 
         this.dialogRef.afterClosed().subscribe(result => {
-            console.log('The dialog was closed');
-            //this.animal = result;
+            this.refreshdata();
         });
     }
     hideloader() {
@@ -142,7 +146,7 @@ export class QuizListingpage {
 
     onPaginateChange(obj){
         this.pageindex=obj["pageIndex"]+1;
-        this.QuizService.getquiz(obj["pageIndex"]+1,this.pageSize).subscribe(res => {this.quiz1 = res;this.length=(res[0]["totolrows"])});
+        this.QuizService.getquiz(obj["pageIndex"]+1,this.pageSize,this.teacherid).subscribe(res => {this.quiz1 = res;this.length=(res[0]["totolrows"])});
         
     }
 

@@ -1,1 +1,1 @@
-{"pages":[{"name":"Page1","elements":[{"type":"radiogroup","name":"question1","choices":["item1","item2","item3"]},{"type":"dropdown","name":"question2","choices":["item1","item2","item3"]}],"title":"New Quiz testing","description":"Checking the quiz"}]}
+{"pages":[{"name":"Page1","elements":[{"type":"dropdown","name":"question1","choices":["item1","item2","item3"]},{"type":"checkbox","name":"question2","choices":["item1","item2","item3"]}],"title":"Quiz Name 123","description":"Quiz Description"}]}

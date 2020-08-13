@@ -21,12 +21,17 @@ export class StudenthomePage {
         localStorage.clear()
         var quizid1 = this.router.url;
         var valufin = quizid1.replace('/', '');
+        var currentdate=new Date();
+        console.log(currentdate);
         this.quizid = valufin;
         localStorage.setItem("quizid",valufin);
+
         var jsonobj = [
             {
                 "id": valufin,
-                "ispublished": 1
+                "ispublished": 1,
+                
+                "startdate":{$lt:currentdate}
             }];
         this.QuizService.getquizbyid(JSON.stringify(jsonobj))
             .subscribe(data => this.status = (JSON.parse(JSON.stringify(data))['status']));
@@ -57,15 +62,22 @@ export class StudenthomePage {
         if (obj == "S001") {
             localStorage.setItem("studname",this.Studentname)
             var quizid = this.router.url;
-
             var valufin = quizid.split('/')[1];
-            var jsonobj = [
-                {
-                    "id": valufin,
-                    "ispublished": 1
-                }];
-            this.QuizService.getquizdatabyid(JSON.stringify(jsonobj))
-                .subscribe(data => data);
+        var jsonobj = [
+            {
+                "id": valufin,
+                "ispublished": 1
+            }];
+        this.QuizService.getquizretdatabyid(JSON.stringify(jsonobj))
+            .subscribe(data => {localStorage.setItem("editjson",JSON.stringify(data))});
+            // var valufin = quizid.split('/')[1];
+            // var jsonobj = [
+            //     {
+            //         "id": valufin,
+            //         "ispublished": 1
+            //     }];
+            // this.QuizService.getquizdatabyid(JSON.stringify(jsonobj))
+            //     .subscribe(data => data);
                 var encryptedval = CryptoJS.AES.encrypt(valufin.trim(), 'q').toString();
             setTimeout(() => {
                 this.router.navigate([this.quizid + "/student"], { queryParams: { Qid: encryptedval } })

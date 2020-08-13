@@ -15,27 +15,37 @@ import CryptoJS from 'crypto-js';
 export class CreatorPage {
   json ;
   quizid;
- 
+  teachername;
   constructor(private http: HttpClient,private router: Router,private route:ActivatedRoute , private QuizService: QuizService,private _snackBar: MatSnackBar) {
-    this.route.queryParams.subscribe(params => {
-      this.quizid=(params["qid"]); 
-    });   
-    if(this.quizid==undefined){
-      this.json= {"pages":[{"name":"Page1","title":"Quiz Name","description":"Quiz Description"}]};
+    this.teachername=localStorage.getItem('teachername');
+    if(this.teachername==undefined )
+    {
+      this.logout();
     }
     else{
-      
-        this.json = JSON.parse(localStorage.getItem("editjson"));
-      
-    }
+      this.route.queryParams.subscribe(params => {
+        this.quizid=(params["qid"]); 
+      });   
+      if(this.quizid==undefined){
+        this.json= {"pages":[{"name":"Page1","title":"Quiz Name","description":"Quiz Description"}]};
+      }
+      else{        
+          this.json = JSON.parse(localStorage.getItem("editjson"));        
+      }
+    }    
   }
   onSurveySaved(survey) {
+    console.log(survey)
     this.json = survey;
     const headers = new HttpHeaders()
     .set('Authorization', 'my-auth-token')
     .set('Content-Type', 'application/json');
+    var jsonstr=JSON.parse(JSON.stringify(this.json));
     if(this.quizid==undefined){
-      this.QuizService.addjsondata(JSON.stringify(this.json))
+      
+    jsonstr["teacherid"]=localStorage.getItem("Td");
+      console.log(JSON.stringify(jsonstr))
+      this.QuizService.addjsondata(JSON.stringify(jsonstr))
       .subscribe(data => {
         this.Navigateedit(JSON.parse(JSON.stringify(data))['status']) 
       });
@@ -70,5 +80,9 @@ export class CreatorPage {
       
     }
 
+  }
+  logout() {
+    this.router.navigate(["/"]);
+    localStorage.clear();
   }
 }

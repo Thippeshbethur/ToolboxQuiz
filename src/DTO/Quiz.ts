@@ -4,5 +4,6 @@ export class Quiz {
     json:string;
     quiztitledesc:string;
     ispublished:boolean;
+    length:number
   }
   

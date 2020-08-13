@@ -66,3 +66,10 @@ td span {
   bottom: 0;
   width: 100%;
 }
+.btn-group{
+  position: absolute;
+  right: 5%;
+}
+.dropdown-menu{
+  min-width: 100%;
+}

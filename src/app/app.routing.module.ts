@@ -5,18 +5,23 @@ import { SurveyPage } from "./pages/survey.page";
 import { CreatorPage } from "./pages/creator.page";
 import { AnalyticsPage } from "./pages/analytics.page";
 import { PdfExportPage } from "./pages/pdfexport.page";
-import {  QuizListingpage } from "./pages/QuizListing.page";
-import {  StudenthomePage } from "./pages/Student/studenthome.page";
-import {  StudentQuizPage } from "./pages/Student/StudentQuiz.page";
+import { QuizListingpage } from "./pages/QuizListing.page";
+import { LoginPage } from "./pages/login.page";
+import { LoginNavPage } from "./pages/Loginnavigator.page";
+import { StudenthomePage } from "./pages/Student/studenthome.page";
+import { StudentQuizPage } from "./pages/Student/StudentQuiz.page";
+import { StudentdashboardPage } from "./pages/Student/Studentdashboard.page";
 
 const routes: Routes = [
-  { path: "", component: HomePage },
+  { path: "", component: LoginNavPage },
+  { path: "login", component: LoginPage },
   { path: "home", component: HomePage },
   { path: "survey", component: SurveyPage },
   { path: "creator", component: CreatorPage },
   { path: "analytics", component: AnalyticsPage },
   { path: "pdfexport", component: PdfExportPage },
-  { path:"quizlist",component:QuizListingpage},
+  { path: "quizlist", component: QuizListingpage },
+  { path: "StudentdashboardPage", component: StudentdashboardPage },
   { path: ":id", component: StudenthomePage },
   { path: ":id/student", component: StudentQuizPage },
 ];
@@ -25,4 +30,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

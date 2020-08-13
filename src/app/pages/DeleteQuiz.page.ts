@@ -3,7 +3,7 @@ import CryptoJS from 'crypto-js';
 import { QuizService } from '../../Service/Quizservice';
 import { QuizListingpage } from './QuizListing.page';
 import {MatSnackBar} from '@angular/material/snack-bar';
-
+import { Router } from '@angular/router';
 
 @Component({
     selector: "DeleteQuiz-page",
@@ -12,10 +12,18 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 })
 export class DeleteQuizpage {
     obj;
-    constructor(private QuizService: QuizService, private _snackBar: MatSnackBar){
-        console.log(localStorage.getItem("quizid1"))
-        //this.obj=CryptoJS.AES.decrypt(sessionStorage.getItem("quizid1"), 'q').toString(CryptoJS.enc.Utf8);
+    teachername;
+    constructor(private QuizService: QuizService, private _snackBar: MatSnackBar,public router: Router){
+        this.teachername=localStorage.getItem('teachername');
+        if(this.teachername==undefined )
+        {
+        this.logout();
+        }
     }
+    logout() {
+        this.router.navigate(["/"]);
+        localStorage.clear();
+      }
     deletequiz() {   
             
         var jsonobj = [

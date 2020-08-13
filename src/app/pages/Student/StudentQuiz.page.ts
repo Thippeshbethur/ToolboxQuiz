@@ -2,20 +2,30 @@ import { Component } from "@angular/core";
 import { Router, UrlSerializer } from "@angular/router";
 import { QuizService } from '../../../Service/Quizservice';
 import json from "../../../assets/survey.json";
+import {Directive, Input, Output, EventEmitter} from '@angular/core';
 
 @Component({
   selector: "StudentQuiz-page",
   templateUrl: "./StudentQuiz.page.html",
 })
+@Directive({
+  selector: '[ngInit]'
+})
 export class StudentQuizPage{
-  public username;
+  
   json;
   Studentroute;
-  
+  @Input() username;
+
+  @Output('ngInit') initEvent: EventEmitter<any> = new EventEmitter();
+
+  ngOnInit() {
+    this.username=localStorage.getItem('studname') ;
+    document.getElementById("btnGroupDrop1").innerText=this.username;
+  }
   constructor(private QuizService: QuizService,private router: Router) {    
-    this.json = json;   
-    this.username=localStorage.getItem('studname');
-    
+    this.json = JSON.parse(localStorage.getItem("editjson")); 
+  
     if(localStorage.getItem("studname")==undefined){
       this.router.navigate(['/'+this.router.url.split('/')[1]])
     }

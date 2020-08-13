@@ -95,7 +95,7 @@
 
 <div class="sidenav">
   <div class="login-main-text">
-    <mat-icon class="rounded-circle border" matListAvatar [routerLink]="['/StudentdashboardPage']">arrow_back</mat-icon>
+    <mat-icon class="rounded-circle border" matListAvatar [routerLink]="['/']">arrow_back</mat-icon>
     <div class="clearfix"></div>
     <h2>ToolBox Quiz</h2>
     <p>Take the Quiz from here.</p>
@@ -107,10 +107,10 @@
         <div id="Logindiv">
           <div class="form-group">
             <h2>Quiz </h2>
-            <label>Student Name</label>
-            <input type="text" class="form-control" placeholder="Please enter Student Name"  [(ngModel)]="Studentname"  >
+            <label>Quiz Code</label>
+            <input type="text" class="form-control" placeholder="Please enter Quiz Code" [(ngModel)]='QuizCode' >
           </div>          
-          <button type="submit" class="btn btn-primary mr-2" (click)="routgen()">Take Quiz</button>
+          <button type="submit" class="btn btn-primary mr-2" (click)="validatequiz()">Take Quiz</button>
           
         </div>
         
