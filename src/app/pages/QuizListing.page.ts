@@ -3,13 +3,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Quiz } from '../../DTO/Quiz';
 import { QuizService } from '../../Service/Quizservice';
 import { Router, UrlSerializer } from "@angular/router";
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatDialogConfig } from '@angular/material/dialog';
 import { PdfExportPage } from '../pages/pdfexport.page'
 import { Publishpage } from '../pages/publish.page'
 import { Genrateurlpage } from "../pages/Generateurl.page";
 import { DeleteQuizpage } from "../pages/DeleteQuiz.page";
 import { SurveyPage } from '../pages/survey.page'
 import {PageEvent} from '@angular/material/paginator';
+
 
 
 import CryptoJS from 'crypto-js';
@@ -46,7 +47,9 @@ export class QuizListingpage {
     }
     deletequiz(obj: any) {
         this.showloader();
-        this.dialogRef = this.dialog.open(DeleteQuizpage, { 'width': '90%', 'height': '90%' });
+        const dialogConfig = new MatDialogConfig();
+        dialogConfig.disableClose = true;
+        this.dialogRef = this.dialog.open(DeleteQuizpage,dialogConfig);
 
         this.dialogRef.afterClosed().subscribe(result => {
             this.refreshdata();
@@ -78,7 +81,9 @@ export class QuizListingpage {
     generatequiz(obj: any) {
 
         localStorage.setItem('quizid', obj);
-        this.dialogRef = this.dialog.open(Genrateurlpage, { 'width': '90%', 'height': '90%' });
+        const dialogConfig = new MatDialogConfig();
+        dialogConfig.disableClose = true;
+        this.dialogRef = this.dialog.open(Genrateurlpage,dialogConfig);
 
         this.dialogRef.afterClosed().subscribe(result => {
             console.log('The dialog was closed');
@@ -93,7 +98,12 @@ export class QuizListingpage {
         this.QuizService.getquizretdatabyid(JSON.stringify(jsonobj))
             .subscribe(data => localStorage.setItem("jsondata",JSON.stringify(data)));
             setTimeout(()=>{
-                this.dialogRef = this.dialog.open(SurveyPage, { 'width': '90%', 'height': '90%' });
+                const dialogConfig = new MatDialogConfig();
+                dialogConfig.disableClose = true;
+                dialogConfig.width='90%';
+                dialogConfig.height='90%'
+
+                this.dialogRef = this.dialog.open(SurveyPage, dialogConfig);
 
                 this.dialogRef.afterClosed().subscribe(result => {
                     console.log('The dialog was closed');
@@ -122,7 +132,9 @@ export class QuizListingpage {
       }
     openDialog(obj): void {
         localStorage.setItem("qid",obj);
-        this.dialogRef = this.dialog.open(Publishpage, { 'width': '90%', 'height': '90%' });
+        const dialogConfig = new MatDialogConfig();
+        dialogConfig.disableClose = true;
+        this.dialogRef = this.dialog.open(Publishpage, dialogConfig);
 
         this.dialogRef.afterClosed().subscribe(result => {
             this.refreshdata();
@@ -148,6 +160,11 @@ export class QuizListingpage {
         this.pageindex=obj["pageIndex"]+1;
         this.QuizService.getquiz(obj["pageIndex"]+1,this.pageSize,this.teacherid).subscribe(res => {this.quiz1 = res;this.length=(res[0]["totolrows"])});
         
+    }
+    Reports(obj)
+    {
+        var encryptedval = CryptoJS.AES.encrypt(obj.trim(), 'q').toString();
+        this.router.navigate(["std"], { queryParams: { qid: encryptedval } })
     }
 
 }

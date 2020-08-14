@@ -61,6 +61,9 @@ export class SurveyComponent implements OnInit {
     surveyModel.onComplete.add((result, options) => {
       this.submitSurvey.emit(result.data);
       this.result = result.data;
+      document
+      .querySelector('#surveyResult')
+      .textContent = "Result JSON:\n" + JSON.stringify(result.data, null, 3);
     });
     Survey.SurveyNG.render("surveyElement", { model: surveyModel });
   }

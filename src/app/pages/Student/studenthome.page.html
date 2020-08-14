@@ -97,23 +97,25 @@
   <div class="login-main-text">
     <mat-icon class="rounded-circle border" matListAvatar [routerLink]="['/StudentdashboardPage']">arrow_back</mat-icon>
     <div class="clearfix"></div>
-    <h2>ToolBox Quiz</h2>
+    <h2>Quiz Tool</h2>
     <p>Take the Quiz from here.</p>
   </div>
 </div>
 <div class="main">
   <div class="col-md-6 col-sm-12">
     <div class="login-form">
-        <div id="Logindiv">
+        <div id="Logindiv" [hidden]="status=='S003'">
           <div class="form-group">
             <h2>Quiz </h2>
             <label>Student Name</label>
             <input type="text" class="form-control" placeholder="Please enter Student Name"  [(ngModel)]="Studentname"  >
           </div>          
-          <button type="submit" class="btn btn-primary mr-2" (click)="routgen()">Take Quiz</button>
-          
-        </div>
-        
+          <button type="submit" class="btn btn-primary mr-2" (click)="routgen()">Take Quiz</button>          
+        </div>   
+        <div [hidden]="status=='S001'">
+          <h2>Quiz </h2>
+          <label>Quiz Already reached the limit please check with your teacher</label>
+        </div>     
     </div>
   </div>
 </div>

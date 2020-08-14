@@ -7,6 +7,7 @@ import {Directive, Input, Output, EventEmitter} from '@angular/core';
 @Component({
   selector: "StudentQuiz-page",
   templateUrl: "./StudentQuiz.page.html",
+  styleUrls: ["./Student.css"],
 })
 @Directive({
   selector: '[ngInit]'

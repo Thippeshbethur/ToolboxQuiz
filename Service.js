@@ -312,6 +312,17 @@ app.post('/putstudentdata', function (req, res) {
       }
     });
 });
+app.post('/getsubmittedstudentbyid', function (req, res) {
+  var dbo = database.db("ToolBoxQuiz");
+  var collection = dbo.collection('Studentdata');
+  var objv = JSON.parse(JSON.stringify(req.body));
+  console.log(objv[0])
+  return collection.find(objv[0]).toArray(function (err, result) {
+    console.log(result)
+    res.send(result);
+  });
+});
+
 
 app.get('/index', function (req, res) {
   fs.readFile(__dirname + "/" + "index.html", 'utf8', function (err, data) {

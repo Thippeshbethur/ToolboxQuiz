@@ -1,13 +1,24 @@
-<h3>Generate Url</h3>
+<style>
+  .container {
+    padding: 16px;
+    text-align: center;
+  }
+</style>
+<h3 style="display: inline-block;">Generate Url</h3>
+<button mat-button mat-dialog-close class="float-right">
+  <span id="canelbtn" class="material-icons">close</span>
+</button>
 <div class="clearfix">&nbsp;</div>
-
-<input type="text"  value="{{url}}" #userinput readonly>
-
+<mat-divider></mat-divider>
+<div class="container">
+<div class="clearfix">&nbsp;</div>
+<input type="text"  value="{{url}}" #userinput readonly style="margin-right: 10px;">
 <span class="material-icons" (click)="copyInputMessage(userinput)" >
   content_copy
-  </span>
-
-
-<mat-dialog-actions align="end">
-    <button mat-button mat-dialog-close id="closebtn">Close</button>    
-  </mat-dialog-actions>
+</span>
+<div class="clearfix">&nbsp;</div>
+  <mat-divider></mat-divider>
+  <div class="col-sm-12 col-xs-12 col-md-12">
+    <button mat-button color="warn" mat-dialog-close id="closebtn">Close</button>
+  </div>
+</div>

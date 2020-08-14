@@ -58,6 +58,14 @@ export class QuizService {
             headers: headers
           });
     }
+    public getsubmittedstudentbyid(obj) {
+        const headers = new HttpHeaders()
+        .set('Authorization', 'my-auth-token')
+        .set('Content-Type', 'application/json');
+        return this.http.post("http://10.10.13.40:8081/getsubmittedstudentbyid", obj, {
+            headers: headers
+          });
+    }
     public getquizdatabyid(obj) {
         const headers = new HttpHeaders()
         .set('Authorization', 'my-auth-token')

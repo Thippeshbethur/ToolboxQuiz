@@ -42,5 +42,8 @@ export class DeleteQuizpage {
             document.getElementById("cancelbtn").click();
         });
     }
+    closedialog() {
+        document.getElementById("cancelbtn").click()
+    }
 
 }

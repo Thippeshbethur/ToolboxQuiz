@@ -1,5 +1,5 @@
 
-<div id="app">
+<div id="app" class="scrollbar scrollbar-secondary">
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="/home" [class.disabled]="disabled ? true: null" *ngIf="router.url == '/home'||router.url.indexOf('/creator')==0||router.url == '/quizlist'||router.url == '/analytics'||router.url=='/'">{{ title }}</a>
     <a class="navbar-brand" [href]="Studentroute" [class.disabled]="disabled ? true: null" *ngIf="router.url != '/home' && router.url.indexOf('/creator')!=0  && router.url != '/quizlist' && router.url != '/analytics' && router.url!='/'">{{ title }}</a>
@@ -17,12 +17,9 @@
         <li class="nav-item" routerLinkActive='link-active'>
           <a class="nav-link" routerLink="/quizlist">Quiz List</a>
         </li>
-        <li class="nav-item" routerLinkActive='link-active'>
-          <a class="nav-link" routerLink="/analytics">Result</a>
-        </li>
       </ul>
     </div>
-    <div class="btn-group" role="group" *ngIf="router.url == '/home'||router.url.indexOf('/creator')==0||router.url == '/quizlist'||router.url == '/analytics'">
+    <div class="btn-group" role="group" *ngIf="router.url == '/home'||router.url.indexOf('/std')==0||router.url.indexOf('/creator')==0||router.url == '/quizlist'||router.url == '/analytics'">
       <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         
       </button>

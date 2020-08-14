@@ -1,4 +1,9 @@
-<div class="container scrollbar scrollbar-lady-lips">
-  <h2>Quiz</h2>
+
+<div class="container scrollbar scrollbar-secondary">
+  <h3 style="display: inline-block;">Generate Url</h3>
+  <button mat-button mat-dialog-close class="float-right" [hidden]="teachername=='undefined'">
+    <span id="canelbtn" class="material-icons">close</span>
+  </button>
   <survey [json]="json" (submitSurvey)="sendData($event)"></survey>
+  <div id="surveyResult"></div> 
 </div>

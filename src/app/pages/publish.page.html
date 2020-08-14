@@ -1,5 +1,10 @@
-<h2 mat-dialog-title>Publish Quiz</h2>
+<h2 mat-dialog-title style="display: inline-block;">Publish Quiz</h2>
+<button mat-button mat-dialog-close class="float-right">
+  <span id="canelbtn" class="material-icons">close</span>
+</button>
+<mat-divider></mat-divider>
 <mat-dialog-content class="mat-typography">
+  <div class="clearfix">&nbsp;</div> 
  <mat-label>Choose a start date</mat-label> &nbsp;
   <input matInput [matDatepicker]="picker1" [(ngModel)]='startpicker1' required readonly>
   <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
@@ -13,6 +18,8 @@
   <mat-label>Enter how many students can take the Quiz &nbsp;</mat-label>
   <input matInput [(ngModel)]='Nostud' required>
 </mat-dialog-content>
+<div class="clearfix">&nbsp;</div>
+<mat-divider></mat-divider>
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close id="canelbtn">Cancel</button>
   <button mat-button  (click)='publishdata()' cdkFocusInitial>Publish</button>

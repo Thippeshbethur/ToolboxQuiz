@@ -8,6 +8,7 @@ import { PdfExportPage } from "./pages/pdfexport.page";
 import { QuizListingpage } from "./pages/QuizListing.page";
 import { LoginPage } from "./pages/login.page";
 import { LoginNavPage } from "./pages/Loginnavigator.page";
+import { StudentreportPage } from "./pages/Studentreport.page";
 import { StudenthomePage } from "./pages/Student/studenthome.page";
 import { StudentQuizPage } from "./pages/Student/StudentQuiz.page";
 import { StudentdashboardPage } from "./pages/Student/Studentdashboard.page";
@@ -21,9 +22,11 @@ const routes: Routes = [
   { path: "analytics", component: AnalyticsPage },
   { path: "pdfexport", component: PdfExportPage },
   { path: "quizlist", component: QuizListingpage },
+  { path: "std", component: StudentreportPage },
   { path: "StudentdashboardPage", component: StudentdashboardPage },
   { path: ":id", component: StudenthomePage },
-  { path: ":id/student", component: StudentQuizPage },
+  { path: ":id/student", component: StudentQuizPage }
+  
 ];
 
 @NgModule({

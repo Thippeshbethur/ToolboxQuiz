@@ -18,13 +18,15 @@ import { Publishpage  } from "./pages/publish.page";
 import { Genrateurlpage  } from "./pages/Generateurl.page";
 import { DeleteQuizpage  } from "./pages/DeleteQuiz.page";
 import { LoginPage  } from "./pages/login.page";
-
 import { LoginNavPage  } from "./pages/Loginnavigator.page";
 import {  StudenthomePage } from "./pages/Student/studenthome.page";
 import {  StudentQuizPage } from "./pages/Student/StudentQuiz.page";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {ReactiveFormsModule} from '@angular/forms';
+import { NgIdleKeepaliveModule } from '@ng-idle/keepalive'; // this includes the core NgIdleModule but includes keepalive providers for easy wireup
+import { MomentModule } from 'angular2-moment';
 import { StudentdashboardPage } from "./pages/Student/Studentdashboard.page";
+import { StudentreportPage } from "./pages/Studentreport.page";
 import {
   MatAutocompleteModule,
   MatButtonModule,
@@ -62,7 +64,7 @@ import {
   MatTableModule,
   MatTabsModule,
   MatToolbarModule,
-  MatTooltipModule,
+  MatTooltipModule,MatPaginatorIntl
 } from '@angular/material';
 
 @NgModule({
@@ -74,7 +76,7 @@ import {
     SurveyCreatorComponent,
     CreatorPage,
     SurveyAnalyticsComponent,
-    AnalyticsPage,LoginNavPage,LoginPage,StudentdashboardPage,
+    AnalyticsPage,LoginNavPage,LoginPage,StudentdashboardPage,StudentreportPage,
     PdfExportPage,QuizListingpage,StudenthomePage,StudentQuizPage,Publishpage,Genrateurlpage,DeleteQuizpage
   ],
   imports: [BrowserModule, FormsModule, HttpClientModule, AppRoutingModule,BrowserAnimationsModule,
@@ -115,9 +117,11 @@ import {
     MatTabsModule,
     MatToolbarModule,
     MatTooltipModule,
-    ReactiveFormsModule],
+    ReactiveFormsModule,
+    NgIdleKeepaliveModule.forRoot(),
+    MomentModule],
     entryComponents:[Publishpage,Genrateurlpage,DeleteQuizpage],
-  providers: [],
+  providers: [{provide: MatPaginatorIntl, useClass: AppComponent }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -6,6 +6,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
     selector: "Generateurl-page",
     templateUrl: "./Generateurl.page.html",
+    styleUrls: ["../app.component.css"],
 })
 export class Genrateurlpage {
     url: any;
@@ -24,9 +25,9 @@ export class Genrateurlpage {
         this.router.navigate(["/"]);
         localStorage.clear();
     }
-    copyInputMessage(inputElement) {
+    copyInputMessage(inputElement) {        
         var snackBarRef = this._snackBar.open("Successfully copied the link", "ok", {
-            duration: 5000,
+            duration: 5000
         });
         snackBarRef.onAction().subscribe(() => {
             document.getElementById("closebtn").click()
@@ -36,7 +37,8 @@ export class Genrateurlpage {
         document.execCommand('copy');
         inputElement.setSelectionRange(0, 0);
     }
-    addinputmess(inputele) {
-        inputele.value
+    closedialog() {
+        document.getElementById("closebtn").click()
     }
+
 }
