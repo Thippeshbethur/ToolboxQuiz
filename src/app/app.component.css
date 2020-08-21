@@ -76,6 +76,75 @@ td span {
 .svd_toolbox_item_icon-file{
   display: none !important;
 }
+.grid-main {
+  
+  border-left-width: 1px;
+  
+  border-left-style: solid;
+  
+  border-left-color: #e0e0e0;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-bottom-color: #e0e0e0;
+  margin-top: 10px;
+}
+.grid-table thead tr {
+  border-top-width: 1px;
+  border-right-width: 0;
+  border-bottom-width: 1px;
+  border-left-width: 0;
+  border-top-style: solid;
+  border-right-style: none;
+  border-bottom-style: solid;
+  border-left-style: none;
+  border-top-color: #e0e0e0;
+  border-bottom-color: #e0e0e0;
+}
+.grid-table thead {
+  background-color: #f5f6f6;
+}
+.grid-table thead tr {
+  border-right-width: 1px;
+  border-right-style: solid;
+  border-right-color: #e0e0e0;
+  border-top-style: none;
+  text-align: center;
+  font-size: 18px;
+  font-family: open_sansregular,Arial,Helvetica,sans-serif;
+  font-style: normal;
+  color: #333333;
+}
+.grid-table  tr {
+  border-right-width: 1px;
+  border-right-style: solid;
+  border-right-color: #e0e0e0;
+  border-top-style: none;
+  text-align: center;
+  font-size: 14px;
+  font-family: open_sansregular,Arial,Helvetica,sans-serif;
+  font-style: normal;
+  color: #333333;
+}
+.pagination-row {
+  position: absolute;
+  bottom: 32px;
+  float: right;
+  padding-left: 0 !important;
+  padding-right: 34px !important;
+  width: 100%;
+}
+.grid-table thead tr {
+  border-top-width: 1px;
+  border-right-width: 0;
+  border-bottom-width: 1px;
+  border-left-width: 0;
+  border-top-style: solid;
+  border-right-style: none;
+  border-bottom-style: solid;
+  border-left-style: none;
+  border-top-color: #e0e0e0;
+  border-bottom-color: #e0e0e0;
+}
 @media screen and (max-width: 37.6em) and (min-width: 21em) and (orientation: portrait){
   .dialog1 >  mat-dialog-container {
     padding: 0px;

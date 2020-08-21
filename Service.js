@@ -43,6 +43,29 @@ app.post('/updatejsondata', function (req, resp) {
     console.log("1 document updated");
   });
 })
+app.post('/updatestudentsubmitteddata', function (req, resp) {
+  var dbo = database.db("ToolBoxQuiz");
+  var data = JSON.stringify(req.body).trim();
+  var submittedjson=JSON.parse(data)['submittedans']
+  var myquery = {
+    'id': JSON.parse(data)['quizid']
+  };
+  console.log(JSON.parse(data));
+  var newvalues = {
+    $set: {
+      "Submitteddata":submittedjson ,
+      "issubmitted": 1,      
+    }
+  };
+  dbo.collection("Studentdata").updateOne(myquery, newvalues, function (err, res) {
+    if (err) throw err;
+    resp.send({
+      status: "S001"
+    });
+    console.log("1 document updated");
+  });
+})
+
 
 app.post('/putjsondata', function (req, res) {
   var dbo = database.db("ToolBoxQuiz");
@@ -242,6 +265,7 @@ app.post('/deletejsondata', function (req, res) {
 app.post('/publishquiz', function (req, res) {
   var dbo = database.db("ToolBoxQuiz");
   var objv = JSON.parse(JSON.stringify(req.body));
+  console.log(JSON.parse(JSON.stringify(req.body)))
   var myquery = {
     id: objv[0]['id']
   };
@@ -284,7 +308,7 @@ app.post('/putstudentdata', function (req, res) {
     $exists: true
   }).toArray(function (err, doc) //find if a value exists
     {
-      console.log(doc)
+      
       if (doc != '') //if it does
       {
         res.send({
@@ -302,10 +326,11 @@ app.post('/putstudentdata', function (req, res) {
           if (err) throw err;
           console.log("1 document updated");
         });
-        dbo.collection("Studentdata").insertOne(myobj, function (err) {
+        dbo.collection("Studentdata").insertOne(myobj, function (err,doc1) {
           if (err) throw err;
+          console.log(myobj.id);
           res.send({
-            status: "S001"
+            status: myobj.id
           });
           console.log("1 document inserted");
         }); // print out what it sends back

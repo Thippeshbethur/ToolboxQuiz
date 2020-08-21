@@ -40,7 +40,7 @@ export class StudenthomePage {
     }
     routgen() {
 
-        if (this.Studentname != '') {
+        if (this.Studentname.trim() != '') {
             var jsonobj1 = [
                 {
                     "Quizid": this.quizid,
@@ -59,7 +59,17 @@ export class StudenthomePage {
 
     }
     routequiz(obj) {
-        if (obj == "S001") {
+        if (obj == "S002") {            
+            var snackBarRef= this._snackBar.open("Please enter the different name because this name already exist", "ok", {
+               
+            });
+            snackBarRef.onAction().subscribe(() => {
+                console.log('The snack-bar action was triggered!');
+            });
+        }
+        else {
+            var encryptedval = CryptoJS.AES.encrypt(obj.trim(), 'q').toString();
+            localStorage.setItem("sid",encryptedval)
             localStorage.setItem("studname",this.Studentname)
             var quizid = this.router.url;
             var valufin = quizid.split('/')[1];
@@ -70,27 +80,10 @@ export class StudenthomePage {
             }];
         this.QuizService.getquizretdatabyid(JSON.stringify(jsonobj))
             .subscribe(data => {localStorage.setItem("editjson",JSON.stringify(data))});
-            // var valufin = quizid.split('/')[1];
-            // var jsonobj = [
-            //     {
-            //         "id": valufin,
-            //         "ispublished": 1
-            //     }];
-            // this.QuizService.getquizdatabyid(JSON.stringify(jsonobj))
-            //     .subscribe(data => data);
                 var encryptedval = CryptoJS.AES.encrypt(valufin.trim(), 'q').toString();
             setTimeout(() => {
                 this.router.navigate([this.quizid + "/student"], { queryParams: { Qid: encryptedval } })
             }, 250);
-
-        }
-        else {
-            var snackBarRef= this._snackBar.open("Please enter the different name because this name already exist", "ok", {
-               
-            });
-            snackBarRef.onAction().subscribe(() => {
-                console.log('The snack-bar action was triggered!');
-            });
         }
 
 

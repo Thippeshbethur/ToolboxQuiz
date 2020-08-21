@@ -34,6 +34,14 @@ export class QuizService {
             headers: headers
           });
     }
+    public updatestudentsubmitteddata(obj){
+        const headers = new HttpHeaders()
+        .set('Authorization', 'my-auth-token')
+        .set('Content-Type', 'application/json');
+        return this.http.post("http://10.10.13.40:8081/updatestudentsubmitteddata", obj, {
+            headers: headers
+          });
+    }
     public deletequiz(obj) {
         const headers = new HttpHeaders()
         .set('Authorization', 'my-auth-token')

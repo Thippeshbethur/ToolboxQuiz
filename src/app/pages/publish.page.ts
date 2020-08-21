@@ -2,7 +2,7 @@ import { Component, Input } from "@angular/core";
 import { QuizService } from '../../Service/Quizservice';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-
+import {formatDate } from '@angular/common';
 
 @Component({
     selector: "Publish-page",
@@ -26,8 +26,9 @@ export class Publishpage {
     }
     publishdata() {
         var obj = localStorage.getItem("qid");
-        var startdate = new Date(this.startpicker1);
-        var enddate = new Date(this.endpicker1);
+        var startdate = formatDate(document.getElementById("startpicker1").value, 'dd-MM-yyyy hh:mm:ss a', 'en-US', '+0530');
+        var enddate = formatDate(document.getElementById("endpicker1").value, 'dd-MM-yyyy hh:mm:ss a', 'en-US', '+0530');
+        console.log(startdate)
         if (startdate < enddate) {
             var jsonobj = [
                 {

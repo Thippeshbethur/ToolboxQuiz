@@ -161,8 +161,9 @@ export class QuizListingpage {
         this.QuizService.getquiz(obj["pageIndex"]+1,this.pageSize,this.teacherid).subscribe(res => {this.quiz1 = res;this.length=(res[0]["totolrows"])});
         
     }
-    Reports(obj)
+    Reports(obj,json)
     {
+        localStorage.setItem("ReviewOrgJson",json);
         var encryptedval = CryptoJS.AES.encrypt(obj.trim(), 'q').toString();
         this.router.navigate(["std"], { queryParams: { qid: encryptedval } })
     }

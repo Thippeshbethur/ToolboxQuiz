@@ -2,7 +2,6 @@ import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
-
 import { AppRoutingModule } from "./app.routing.module";
 import { AppComponent } from "./app.component";
 import { SurveyComponent } from "./components/survey.component";
@@ -27,6 +26,8 @@ import { NgIdleKeepaliveModule } from '@ng-idle/keepalive'; // this includes the
 import { MomentModule } from 'angular2-moment';
 import { StudentdashboardPage } from "./pages/Student/Studentdashboard.page";
 import { StudentreportPage } from "./pages/Studentreport.page";
+import { StudentresponsePage } from "./pages/Student/Studentresponse.page";
+
 import {
   MatAutocompleteModule,
   MatButtonModule,
@@ -67,8 +68,19 @@ import {
   MatTooltipModule,MatPaginatorIntl
 } from '@angular/material';
 
+import { from } from 'rxjs';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { library as fontLibrary } from '@fortawesome/fontawesome-svg-core';
+import { faCalendar,  faClock } from '@fortawesome/free-regular-svg-icons';
+
+
+fontLibrary.add(
+    faCalendar,
+    faClock
+);
 @NgModule({
   declarations: [
+    
     AppComponent,
     HomePage,
     SurveyComponent,
@@ -76,7 +88,7 @@ import {
     SurveyCreatorComponent,
     CreatorPage,
     SurveyAnalyticsComponent,
-    AnalyticsPage,LoginNavPage,LoginPage,StudentdashboardPage,StudentreportPage,
+    AnalyticsPage,LoginNavPage,LoginPage,StudentdashboardPage,StudentreportPage,StudentresponsePage,
     PdfExportPage,QuizListingpage,StudenthomePage,StudentQuizPage,Publishpage,Genrateurlpage,DeleteQuizpage
   ],
   imports: [BrowserModule, FormsModule, HttpClientModule, AppRoutingModule,BrowserAnimationsModule,
@@ -120,7 +132,7 @@ import {
     ReactiveFormsModule,
     NgIdleKeepaliveModule.forRoot(),
     MomentModule],
-    entryComponents:[Publishpage,Genrateurlpage,DeleteQuizpage],
+    entryComponents:[Publishpage,Genrateurlpage,DeleteQuizpage,StudentresponsePage],
   providers: [{provide: MatPaginatorIntl, useClass: AppComponent }],
   bootstrap: [AppComponent],
 })
