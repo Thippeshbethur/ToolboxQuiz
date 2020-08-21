@@ -58,6 +58,13 @@ export class SurveyCreatorComponent {
       "popupdescription:text"
     );
     SurveyKo.JsonObject.metaData.addProperty("page", "popupdescription:text");
+    SurveyKo
+    .Serializer
+    .addProperty("question", {
+        name: "Marks:number", 
+        default: 0,
+        category: "data"
+    });
 
     let options = { showEmbededSurveyTab: true, generateValidJSON: true };
     this.surveyCreator = new SurveyCreator.SurveyCreator(
@@ -66,10 +73,12 @@ export class SurveyCreatorComponent {
     );
     this.surveyCreator.text = JSON.stringify(this.json);
     this.surveyCreator.saveSurveyFunc = this.saveMySurvey;
+    
   }
 
   saveMySurvey = () => {
     console.log(JSON.stringify(this.surveyCreator.text));
     this.surveySaved.emit(JSON.parse(this.surveyCreator.text));
   };
+  
 }

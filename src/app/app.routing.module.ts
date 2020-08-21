@@ -27,6 +27,7 @@ const routes: Routes = [
   { path: ":id", component: StudenthomePage },
   { path: ":id/student", component: StudentQuizPage }
   
+  
 ];
 
 @NgModule({

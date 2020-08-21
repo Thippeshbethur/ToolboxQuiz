@@ -4,22 +4,22 @@
 </button>
 <mat-divider></mat-divider>
 <mat-dialog-content class="mat-typography">
-  <div class="clearfix">&nbsp;</div> 
- <mat-label>Choose a start date</mat-label> &nbsp;
-  <input matInput [matDatepicker]="picker1" [(ngModel)]='startpicker1' required readonly>
-  <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-  <mat-datepicker #picker1></mat-datepicker> 
+  <mat-form-field class="md-input-has-placeholder">
+    <input matInput id="startpicker1" type="datetime-local" placeholder="start date" value="2018-06-12T19:30"
+    min="2018-06-07T00:00" max="2050-06-14T00:00">
+    <div class="md-errors-spacer"></div>
+  </mat-form-field> 
   <div class="clearfix">&nbsp;</div>
-  <mat-label>Choose a End date &nbsp;</mat-label>
-  <input matInput [matDatepicker]="picker2" [(ngModel)]='endpicker1' required readonly>
-  <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-  <mat-datepicker #picker2></mat-datepicker>
-  <div class="clearfix">&nbsp;</div>  
-  <mat-label>Enter how many students can take the Quiz &nbsp;</mat-label>
-  <input matInput [(ngModel)]='Nostud' required>
+  <mat-form-field class="md-input-has-placeholder">
+    <input matInput id="endpicker1" type="datetime-local" placeholder="End date" value="2018-06-12T19:30"
+    min="2018-06-07T00:00" max="2050-06-14T00:00">
+  </mat-form-field>
+  <div class="clearfix">&nbsp;</div> 
+  <mat-form-field class="md-input-has-placeholder">
+    <input matInput [(ngModel)]='Nostud' placeholder="Enter how many students can take the Quiz" required>
+  </mat-form-field> 
+  
 </mat-dialog-content>
-<div class="clearfix">&nbsp;</div>
-<mat-divider></mat-divider>
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close id="canelbtn">Cancel</button>
   <button mat-button  (click)='publishdata()' cdkFocusInitial>Publish</button>

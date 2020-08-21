@@ -5,5 +5,7 @@
     <span id="canelbtn" class="material-icons">close</span>
   </button>
   <survey [json]="json" (submitSurvey)="sendData($event)"></survey>
-  <div id="surveyResult"></div> 
+  <div class="survey-container contentcontainer codecontainer">
+    <div id="surveyElement"></div>
+  </div>
 </div>
