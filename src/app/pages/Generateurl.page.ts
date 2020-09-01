@@ -17,7 +17,7 @@ export class Genrateurlpage {
         if (this.teachername == undefined) {
             this.logout();
         } else {
-            this.url = window.document.location.href.split('/')[2] + "/" + window.document.location.href.split('/')[3] + "/" + localStorage.getItem('quizid');
+            this.url = localStorage.getItem('quizid');
             this.route = router.url;
         }
     }

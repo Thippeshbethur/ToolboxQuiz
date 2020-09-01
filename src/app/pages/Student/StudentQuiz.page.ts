@@ -40,8 +40,7 @@ export class StudentQuizPage{
   }
   sendData(result) {
     //TODO update with your own behavior
-    const surveyModel = new Survey.Model(this.json);
-    console.log(JSON.stringify(result));       
+    const surveyModel = new Survey.Model(this.json);    
   }
   
   logout(){

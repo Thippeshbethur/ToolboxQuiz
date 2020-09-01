@@ -31,26 +31,8 @@ export class SurveyPage {
     localStorage.clear();
   }
   sendData(result) {
-    //TODO update with your own behavior
-    
-    // console.log(result);
     const surveyModel = new Survey.Model(this.json);
-    surveyModel.data=JSON.stringify(result.data);
-    // var options = {
-    //   fontSize: 14,
-    //   margins: {
-    //     left: 10,
-    //     right: 10,
-    //     top: 10,
-    //     bot: 10,
-    //   },
-    // };
-    
-    // const surveyPDF = new SurveyPDF.SurveyPDF(this.json, options);
-    
-    console.log(result);
-    
-    // surveyPDF.save("survey PDF example");
+    surveyModel.data=JSON.stringify(result.data);   
   }
   savePDF() {
     

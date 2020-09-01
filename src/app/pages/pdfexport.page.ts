@@ -37,7 +37,7 @@ export class PdfExportPage {
       },
     };
     const surveyPDF = new SurveyPDF.SurveyPDF(this.json, options);
-    console.log(this.result);
+   
     surveyPDF.data = this.result;
     surveyPDF.save("survey PDF example");
   }

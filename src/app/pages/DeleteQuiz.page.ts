@@ -33,7 +33,6 @@ export class DeleteQuizpage {
 
         this.QuizService.deletequiz(JSON.stringify(jsonobj)).subscribe(data=>this.deletedquiz(JSON.parse(JSON.stringify(data))['status']=='S001'));
         
-        console.log(this.obj)
     }
     deletedquiz(obj){
         var snackBarRef=this._snackBar.open("Deleted successfully", "ok", {

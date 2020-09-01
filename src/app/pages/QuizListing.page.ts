@@ -11,10 +11,7 @@ import { DeleteQuizpage } from "../pages/DeleteQuiz.page";
 import { SurveyPage } from '../pages/survey.page'
 import {PageEvent} from '@angular/material/paginator';
 
-
-
 import CryptoJS from 'crypto-js';
-import { from } from 'rxjs';
 
 @Component({
     selector: "QuizListing-page",
@@ -65,7 +62,6 @@ export class QuizListingpage {
     //     this.refreshdata();
     // }
     editquiz(obj: any) {
-        console.log(new Date());
         var encryptedval = CryptoJS.AES.encrypt(obj.trim(), 'q').toString();
         var jsonobj = [
             {
@@ -86,7 +82,6 @@ export class QuizListingpage {
         this.dialogRef = this.dialog.open(Genrateurlpage,dialogConfig);
 
         this.dialogRef.afterClosed().subscribe(result => {
-            console.log('The dialog was closed');
             //this.animal = result;
         });
     }
@@ -106,7 +101,6 @@ export class QuizListingpage {
                 this.dialogRef = this.dialog.open(SurveyPage, dialogConfig);
 
                 this.dialogRef.afterClosed().subscribe(result => {
-                    console.log('The dialog was closed');
                     localStorage.setItem("jsondata","");
                     //this.animal = result;
                 });
@@ -166,6 +160,19 @@ export class QuizListingpage {
         localStorage.setItem("ReviewOrgJson",json);
         var encryptedval = CryptoJS.AES.encrypt(obj.trim(), 'q').toString();
         this.router.navigate(["std"], { queryParams: { qid: encryptedval } })
+    }
+    copyInputMessage(inputElement) { 
+
+        // var snackBarRef = this._snackBar.open("Successfully copied the link", "ok", {
+        //     duration: 5000
+        // });
+        // snackBarRef.onAction().subscribe(() => {
+        //     document.getElementById("closebtn").click()
+        // });
+
+        inputElement.select();
+        document.execCommand('copy');
+        inputElement.setSelectionRange(0, 0);
     }
 
 }

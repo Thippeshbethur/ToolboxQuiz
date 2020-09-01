@@ -16,22 +16,23 @@ export class StudenthomePage {
     quizid: any;
     Studentname: any = '';
     Studentroute;
-    disabled=true
+    disabled=true;
+    curr;
     constructor(private QuizService: QuizService, private router: Router, private _snackBar: MatSnackBar) {
         localStorage.clear()
         var quizid1 = this.router.url;
         var valufin = quizid1.replace('/', '');
         var currentdate=new Date();
-        console.log(currentdate);
         this.quizid = valufin;
         localStorage.setItem("quizid",valufin);
-
+        var currtim=new Date().toLocaleString().toString();
+        this.curr=new Date(currtim).toLocaleString();
         var jsonobj = [
             {
                 "id": valufin,
                 "ispublished": 1,
-                
-                "startdate":{$lt:currentdate}
+                "startdate":{$lte:this.curr},
+                "enddate":{$gte:this.curr}
             }];
         this.QuizService.getquizbyid(JSON.stringify(jsonobj))
             .subscribe(data => this.status = (JSON.parse(JSON.stringify(data))['status']));
@@ -64,7 +65,6 @@ export class StudenthomePage {
                
             });
             snackBarRef.onAction().subscribe(() => {
-                console.log('The snack-bar action was triggered!');
             });
         }
         else {

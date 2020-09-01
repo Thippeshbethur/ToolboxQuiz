@@ -1,6 +1,36 @@
-<div class="container">
-  <div class="col-lg-3 centered">
-    <img src="/Toolboxquiz/assets/logo.svg" />
-  </div>
+<div class="clearfix"></div>
 
+<div class="row p-5">
+  <div class="col-md-3 p-3">
+    <div class="card card-stats" [routerLink]="['/creator']">
+      <div class="card-header card-header-warning card-header-icon">
+        <div class="card-icon">
+          <mat-icon>add</mat-icon>
+        </div>
+        <p class="card-category">Create</p>
+        <h5 class="card-title">Total Quiz:{{quizcount}}</h5>
+      </div>
+      <div class="card-footer">
+        <div class="stats">
+          <i class="material-icons">date_range</i> Till Last Month
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3 p-3">
+    <div class="card card-stats" [routerLink]="['/quizlist']">
+      <div class="card-header card-header-success card-header-icon">
+        <div class="card-icon">
+          <mat-icon>view_list</mat-icon>
+        </div>
+        <p class="card-category">Quizes</p>
+        <h5 class="card-title">Published Count:{{Published}}</h5>
+      </div>
+      <div class="card-footer">
+        <div class="stats">
+          <i class="material-icons">date_range</i> Till Last Month
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

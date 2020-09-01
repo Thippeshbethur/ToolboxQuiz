@@ -35,7 +35,6 @@ export class CreatorPage {
     }    
   }
   onSurveySaved(survey) {
-    console.log(survey)
     this.json = survey;
     const headers = new HttpHeaders()
     .set('Authorization', 'my-auth-token')
@@ -44,7 +43,7 @@ export class CreatorPage {
     if(this.quizid==undefined){
       
     jsonstr["teacherid"]=localStorage.getItem("Td");
-      console.log(JSON.stringify(jsonstr))
+      
       this.QuizService.addjsondata(JSON.stringify(jsonstr))
       .subscribe(data => {
         this.Navigateedit(JSON.parse(JSON.stringify(data))['status']) 
@@ -57,12 +56,11 @@ export class CreatorPage {
       }
       var sts=this.QuizService.updatejsondata(JSON.stringify(updatejson))
       .subscribe(data => this.Navigateedit(JSON.parse(JSON.stringify(data))['status']));
-      console.log(sts=>console.log(sts));
+      
     }
     
   }
   Navigateedit(obj){
-    console.log(obj)
     if(obj=="S001"){
       var snackBarRef;
       if(this.quizid==undefined){

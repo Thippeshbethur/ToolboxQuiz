@@ -19,6 +19,7 @@ export class Publishpage {
         if (this.teachername == undefined) {
             this.logout();
         }
+        
     }
     logout() {
         this.router.navigate(["/"]);
@@ -26,9 +27,9 @@ export class Publishpage {
     }
     publishdata() {
         var obj = localStorage.getItem("qid");
-        var startdate = formatDate(document.getElementById("startpicker1").value, 'dd-MM-yyyy hh:mm:ss a', 'en-US', '+0530');
-        var enddate = formatDate(document.getElementById("endpicker1").value, 'dd-MM-yyyy hh:mm:ss a', 'en-US', '+0530');
-        console.log(startdate)
+        var startdate = new Date((document.getElementById("startpicker1")as HTMLInputElement).value).toLocaleString();
+        var enddate = new Date((document.getElementById("endpicker1")as HTMLInputElement).value).toLocaleString();
+        
         if (startdate < enddate) {
             var jsonobj = [
                 {

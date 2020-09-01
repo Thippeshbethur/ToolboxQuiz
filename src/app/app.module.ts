@@ -27,6 +27,7 @@ import { MomentModule } from 'angular2-moment';
 import { StudentdashboardPage } from "./pages/Student/Studentdashboard.page";
 import { StudentreportPage } from "./pages/Studentreport.page";
 import { StudentresponsePage } from "./pages/Student/Studentresponse.page";
+import { Config } from "Config/config";
 
 import {
   MatAutocompleteModule,
@@ -72,11 +73,12 @@ import { from } from 'rxjs';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { library as fontLibrary } from '@fortawesome/fontawesome-svg-core';
 import { faCalendar,  faClock } from '@fortawesome/free-regular-svg-icons';
+import { config } from 'process';
 
 
 fontLibrary.add(
     faCalendar,
-    faClock
+    faClock,
 );
 @NgModule({
   declarations: [
@@ -133,7 +135,7 @@ fontLibrary.add(
     NgIdleKeepaliveModule.forRoot(),
     MomentModule],
     entryComponents:[Publishpage,Genrateurlpage,DeleteQuizpage,StudentresponsePage],
-  providers: [{provide: MatPaginatorIntl, useClass: AppComponent }],
+  providers: [{provide: MatPaginatorIntl, useClass: AppComponent },{provide:Config}],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

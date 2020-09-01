@@ -84,7 +84,7 @@ export class LoginPage {
         }
     }
     validatepassword(obj){
-        console.log(CryptoJS.AES.decrypt(JSON.parse(JSON.stringify(obj))[0]["password"].trim(), 'q').toString(CryptoJS.enc.Utf8));
+       
         if(this.lpassword==CryptoJS.AES.decrypt(JSON.parse(JSON.stringify(obj))[0]["password"].trim(), 'q').toString(CryptoJS.enc.Utf8)){
             localStorage.setItem("teachername",this.lusername)
             localStorage.setItem("Td",JSON.parse(JSON.stringify(obj))[0]["teacherid"])

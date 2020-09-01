@@ -62,7 +62,7 @@ export class SurveyCreatorComponent {
     .Serializer
     .addProperty("question", {
         name: "Marks:number", 
-        default: 0,
+        default: 1,
         category: "data"
     });
 
@@ -76,8 +76,7 @@ export class SurveyCreatorComponent {
     
   }
 
-  saveMySurvey = () => {
-    console.log(JSON.stringify(this.surveyCreator.text));
+  saveMySurvey = () => {    
     this.surveySaved.emit(JSON.parse(this.surveyCreator.text));
   };
   

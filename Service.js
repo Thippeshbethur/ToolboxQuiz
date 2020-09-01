@@ -3,9 +3,11 @@ var autoIncrement = require("mongodb-autoincrement");
 var app = express();
 var fs = require("fs");
 const cors = require('cors');
+var bodyParser = require('body-parser');
 var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb://localhost:27017/ToolBoxQuiz";
 var database;
+
 var bodyParser = require('body-parser');
 app.use(cors());
 app.use(bodyParser.json());
@@ -20,6 +22,8 @@ MongoClient.connect(url, function (err, db) {
   var dbo = db.db("ToolBoxQuiz");
 });
 app.post('/updatejsondata', function (req, resp) {
+  var currtim=new Date().toLocaleString().toString();
+  var curr=new Date(currtim).toLocaleString();
   var dbo = database.db("ToolBoxQuiz");
   var data = JSON.stringify(req.body).trim();
   var quiztitle = JSON.parse(data)['json']['pages'][0]['title'];
@@ -32,7 +36,8 @@ app.post('/updatejsondata', function (req, resp) {
     $set: {
       "quizname": quiztitle,
       "quiztitledesc": quiztitledesc,
-      "json": JSON.stringify(JSON.parse(data)['json'])
+      "json": JSON.stringify(JSON.parse(data)['json']),
+      "createddate":curr
     }
   };
   dbo.collection("QuizQuestion").updateOne(myquery, newvalues, function (err, res) {
@@ -46,7 +51,8 @@ app.post('/updatejsondata', function (req, resp) {
 app.post('/updatestudentsubmitteddata', function (req, resp) {
   var dbo = database.db("ToolBoxQuiz");
   var data = JSON.stringify(req.body).trim();
-  var submittedjson=JSON.parse(data)['submittedans']
+  var submittedjson=JSON.parse(data)['submittedans'];
+  var score=JSON.parse(data)['Score'];
   var myquery = {
     'id': JSON.parse(data)['quizid']
   };
@@ -54,7 +60,8 @@ app.post('/updatestudentsubmitteddata', function (req, resp) {
   var newvalues = {
     $set: {
       "Submitteddata":submittedjson ,
-      "issubmitted": 1,      
+      "issubmitted": 1, 
+      "Score":score,
     }
   };
   dbo.collection("Studentdata").updateOne(myquery, newvalues, function (err, res) {
@@ -68,6 +75,8 @@ app.post('/updatestudentsubmitteddata', function (req, resp) {
 
 
 app.post('/putjsondata', function (req, res) {
+  var currtim=new Date().toLocaleString().toString();
+  var curr=new Date(currtim).toLocaleString();
   var dbo = database.db("ToolBoxQuiz");
   var data = JSON.stringify(req.body).trim();
   let coll = dbo.collection('QuizQuestion');
@@ -88,7 +97,8 @@ app.post('/putjsondata', function (req, res) {
     startdate: '',
     enddate: '',
     studentrestriction: '',
-    createdby:teacherid
+    createdby:teacherid,
+    createddate:curr
   };
   dbo.collection("QuizQuestion").insertOne(myobj, function (err) {
     if (err) throw err;
@@ -96,6 +106,17 @@ app.post('/putjsondata', function (req, res) {
       status: "S001"
     });
     console.log("1 document inserted");
+  });
+});
+app.post('/getQuizcount', function (req, res) {
+  var dbo = database.db("ToolBoxQuiz");
+  var objv = JSON.parse(JSON.stringify(req.body));
+  console.log(objv[0])
+  dbo.collection('QuizQuestion').find(objv[0]).toArray(function (err, result1) {
+    res.send
+    ({
+      Count: result1.length
+    });
   });
 });
 app.get('/getjsondata', function (req, res) {
@@ -134,6 +155,7 @@ app.post('/getquizstatusbyid', function (req, res) {
   var dbo = database.db("ToolBoxQuiz");
   var collection = dbo.collection('QuizQuestion');
   var objv = JSON.parse(JSON.stringify(req.body));
+  console.log(objv[0])
   return collection.find(objv[0]).toArray(function (err, result) {
     if (result.length > 0) {
       res.send({
@@ -360,4 +382,3 @@ var server = app.listen(8081, function () {
   var port = server.address().port
   console.log("Example app listening at http://%s:%s", host, port)
 })
-

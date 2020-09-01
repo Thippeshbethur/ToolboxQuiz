@@ -4,6 +4,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import CryptoJS from 'crypto-js';
 import {Router } from "@angular/router";
 import { config } from 'process';
+import {formatDate } from '@angular/common';
 @Component({
     selector: "Studentdashboard-page",
     templateUrl: "./Studentdashboard.page.html",
@@ -11,8 +12,11 @@ import { config } from 'process';
 })
 export class StudentdashboardPage {
     QuizCode;
+    curr;
     constructor(private QuizService: QuizService,private _snackBar: MatSnackBar,private router: Router){        
-        
+        var currentdate=new Date();
+        var currtim=new Date().toLocaleString().toString();
+             this.curr=new Date(currtim).toLocaleString();
     }
     validatequiz(){
         if(this.QuizCode==undefined){
@@ -21,16 +25,17 @@ export class StudentdashboardPage {
             });
         }
         else{
-            var currentdate=new Date();
+            
+            
             var jsonobj = [
                 {
                     "id": this.QuizCode,
-                    "ispublished": 1,                    
-                    "startdate":{$lt:currentdate}
+                    "ispublished": 1,                                      
+                    "startdate":{$lte:this.curr},
+                    "enddate":{$gte:this.curr}
                 }];
                 this.QuizService.getquizstatusbyid(JSON.stringify(jsonobj))
                 .subscribe(data => {
-                    console.log(JSON.parse(JSON.stringify(data))['status'])
                     if(JSON.parse(JSON.stringify(data))['status']=='S001'){  
                         this.router.navigate([this.QuizCode]);                      
                     }
@@ -41,8 +46,7 @@ export class StudentdashboardPage {
                     }
                 }                    
                 );
-        }
-    
+        }   
     
     }
 }
