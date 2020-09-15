@@ -24,27 +24,26 @@ export class StudentQuizPage{
   @Output('ngInit') initEvent: EventEmitter<any> = new EventEmitter();
 
   ngOnInit() {
-    this.username=localStorage.getItem('studname') ;
-    this.studentid=localStorage.getItem("sid")
+    this.username=sessionStorage.getItem('studname') ;
+    this.studentid=sessionStorage.getItem("sid")
     document.getElementById("btnGroupDrop1").innerText=this.username;
   }
   constructor(private QuizService: QuizService,private router: Router) {    
-    this.json = JSON.parse(localStorage.getItem("editjson")); 
+    this.json = JSON.parse(sessionStorage.getItem("editjson")); 
   
-    if(localStorage.getItem("studname")==undefined){
+    if(sessionStorage.getItem("studname")==undefined){
       this.router.navigate(['/'+this.router.url.split('/')[1]])
     }
     setTimeout(()=>{
-      localStorage.setItem("routeurl",router.url)  
+      sessionStorage.setItem("routeurl",router.url)  
     },500);    
   }
   sendData(result) {
     //TODO update with your own behavior
-    const surveyModel = new Survey.Model(this.json);
-    console.log(JSON.stringify(result));       
+    const surveyModel = new Survey.Model(this.json);    
   }
   
   logout(){
-    localStorage.clear();
+    sessionStorage.clear();
   }
 }

@@ -13,17 +13,18 @@ export class Genrateurlpage {
     route;
     teachername;
     constructor(private router: Router, private _snackBar: MatSnackBar) {
-        this.teachername = localStorage.getItem('teachername');
+        this.teachername = sessionStorage.getItem('teachername');
         if (this.teachername == undefined) {
             this.logout();
         } else {
-            this.url = window.document.location.href.split('/')[2] + "/" + window.document.location.href.split('/')[3] + "/" + localStorage.getItem('quizid');
+            console.log(window.location.hostname+router.url)
+            this.url = window.location.href.split("#")[0]+"#/"+sessionStorage.getItem('quizid');
             this.route = router.url;
         }
     }
     logout() {
         this.router.navigate(["/"]);
-        localStorage.clear();
+        sessionStorage.clear();
     }
     copyInputMessage(inputElement) {        
         var snackBarRef = this._snackBar.open("Successfully copied the link", "ok", {

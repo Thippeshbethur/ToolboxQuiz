@@ -14,7 +14,7 @@ export class DeleteQuizpage {
     obj;
     teachername;
     constructor(private QuizService: QuizService, private _snackBar: MatSnackBar,public router: Router){
-        this.teachername=localStorage.getItem('teachername');
+        this.teachername=sessionStorage.getItem('teachername');
         if(this.teachername==undefined )
         {
         this.logout();
@@ -22,18 +22,17 @@ export class DeleteQuizpage {
     }
     logout() {
         this.router.navigate(["/"]);
-        localStorage.clear();
+        sessionStorage.clear();
       }
     deletequiz() {   
             
         var jsonobj = [
             {
-                "id": CryptoJS.AES.decrypt(localStorage.getItem("quizid1").trim(), 'q').toString(CryptoJS.enc.Utf8)
+                "id": CryptoJS.AES.decrypt(sessionStorage.getItem("quizid1").trim(), 'q').toString(CryptoJS.enc.Utf8)
             }];
 
         this.QuizService.deletequiz(JSON.stringify(jsonobj)).subscribe(data=>this.deletedquiz(JSON.parse(JSON.stringify(data))['status']=='S001'));
         
-        console.log(this.obj)
     }
     deletedquiz(obj){
         var snackBarRef=this._snackBar.open("Deleted successfully", "ok", {

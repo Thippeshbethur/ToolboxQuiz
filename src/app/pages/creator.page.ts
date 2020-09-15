@@ -17,7 +17,7 @@ export class CreatorPage {
   quizid;
   teachername;
   constructor(private http: HttpClient,private router: Router,private route:ActivatedRoute , private QuizService: QuizService,private _snackBar: MatSnackBar) {
-    this.teachername=localStorage.getItem('teachername');
+    this.teachername=sessionStorage.getItem('teachername');
     if(this.teachername==undefined )
     {
       this.logout();
@@ -30,12 +30,11 @@ export class CreatorPage {
         this.json= {"pages":[{"name":"Page1","title":"Quiz Name","description":"Quiz Description"}]};
       }
       else{        
-          this.json = JSON.parse(localStorage.getItem("editjson"));        
+          this.json = JSON.parse(sessionStorage.getItem("editjson"));        
       }
     }    
   }
   onSurveySaved(survey) {
-    console.log(survey)
     this.json = survey;
     const headers = new HttpHeaders()
     .set('Authorization', 'my-auth-token')
@@ -43,8 +42,8 @@ export class CreatorPage {
     var jsonstr=JSON.parse(JSON.stringify(this.json));
     if(this.quizid==undefined){
       
-    jsonstr["teacherid"]=localStorage.getItem("Td");
-      console.log(JSON.stringify(jsonstr))
+    jsonstr["teacherid"]=sessionStorage.getItem("Td");
+      
       this.QuizService.addjsondata(JSON.stringify(jsonstr))
       .subscribe(data => {
         this.Navigateedit(JSON.parse(JSON.stringify(data))['status']) 
@@ -57,12 +56,11 @@ export class CreatorPage {
       }
       var sts=this.QuizService.updatejsondata(JSON.stringify(updatejson))
       .subscribe(data => this.Navigateedit(JSON.parse(JSON.stringify(data))['status']));
-      console.log(sts=>console.log(sts));
+      
     }
     
   }
   Navigateedit(obj){
-    console.log(obj)
     if(obj=="S001"){
       var snackBarRef;
       if(this.quizid==undefined){
@@ -83,6 +81,6 @@ export class CreatorPage {
   }
   logout() {
     this.router.navigate(["/"]);
-    localStorage.clear();
+    sessionStorage.clear();
   }
 }

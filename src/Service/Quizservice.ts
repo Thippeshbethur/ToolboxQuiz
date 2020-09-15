@@ -11,116 +11,134 @@ const httpOptions = {
 
 @Injectable({ providedIn: 'root' })
 export class QuizService {
-
+    url;
+    dataval;
     constructor(
-        private http: HttpClient) { }
-    public getquiz(pageno,pagesize,teacherid): Observable<Quiz> {
-        return this.http.get<Quiz>("http://10.10.13.40:8081/getjsondata?pageNo="+pageno+"&size="+pagesize+"&teacherid="+teacherid, { responseType: 'json' }
+        private http: HttpClient) { 
+            this.getconfigkey().subscribe(data=>{
+                this.url=data['url']
+                
+            }
+            );
+        }
+        public getconfigkey():any{            
+            return this.http.get("assets/env.json");            
+        }
+    public getquiz(pageno, pagesize, teacherid): Observable<Quiz> {
+        return this.http.get<Quiz>(this.url+"getjsondata?pageNo=" + pageno + "&size=" + pagesize + "&teacherid=" + teacherid, { responseType: 'json' }
         );
     }
-    public addjsondata(obj){
+    public addjsondata(obj) {
         const headers = new HttpHeaders()
-        .set('Authorization', 'my-auth-token')
-        .set('Content-Type', 'application/json');
-        return this.http.post("http://10.10.13.40:8081/putjsondata", obj, {
+            .set('Authorization', 'my-auth-token')
+            .set('Content-Type', 'application/json');
+        return this.http.post(this.url+"putjsondata", obj, {
             headers: headers
-          });
+        });
     }
-    public updatejsondata(obj){
+    public updatejsondata(obj) {
         const headers = new HttpHeaders()
-        .set('Authorization', 'my-auth-token')
-        .set('Content-Type', 'application/json');
-        return this.http.post("http://10.10.13.40:8081/updatejsondata", obj, {
+            .set('Authorization', 'my-auth-token')
+            .set('Content-Type', 'application/json');
+        return this.http.post(this.url+"updatejsondata", obj, {
             headers: headers
-          });
+        });
     }
-    public updatestudentsubmitteddata(obj){
+    public getQuizcount(obj) {
         const headers = new HttpHeaders()
-        .set('Authorization', 'my-auth-token')
-        .set('Content-Type', 'application/json');
-        return this.http.post("http://10.10.13.40:8081/updatestudentsubmitteddata", obj, {
+            .set('Authorization', 'my-auth-token')
+            .set('Content-Type', 'application/json');
+        return this.http.post(this.url+"getQuizcount", obj, {
             headers: headers
-          });
+        });
+    }
+    public updatestudentsubmitteddata(obj) {
+        const headers = new HttpHeaders()
+            .set('Authorization', 'my-auth-token')
+            .set('Content-Type', 'application/json');
+        return this.http.post(this.url+"updatestudentsubmitteddata", obj, {
+            headers: headers
+        });
     }
     public deletequiz(obj) {
         const headers = new HttpHeaders()
-        .set('Authorization', 'my-auth-token')
-        .set('Content-Type', 'application/json');
-        return this.http.post("http://10.10.13.40:8081/deletejsondata", obj, {
+            .set('Authorization', 'my-auth-token')
+            .set('Content-Type', 'application/json');
+        return this.http.post(this.url+"deletejsondata", obj, {
             headers: headers
-          })
+        })
     }
     public getquizbyid(obj) {
         const headers = new HttpHeaders()
-        .set('Authorization', 'my-auth-token')
-        .set('Content-Type', 'application/json');
-        return this.http.post("http://10.10.13.40:8081/getstatusbyid", obj, {
+            .set('Authorization', 'my-auth-token')
+            .set('Content-Type', 'application/json');
+        return this.http.post(this.url+"getstatusbyid", obj, {
             headers: headers
-          });
+        });
     }
     public getquizstatusbyid(obj) {
         const headers = new HttpHeaders()
-        .set('Authorization', 'my-auth-token')
-        .set('Content-Type', 'application/json');
-        return this.http.post("http://10.10.13.40:8081/getquizstatusbyid", obj, {
-            headers: headers
-          });
+            .set('Authorization', 'my-auth-token')
+            .set('Content-Type', 'application/json');
+            return this.http.post(this.url+"getquizstatusbyid", obj, {
+                headers: headers
+            });            
     }
     public getsubmittedstudentbyid(obj) {
         const headers = new HttpHeaders()
-        .set('Authorization', 'my-auth-token')
-        .set('Content-Type', 'application/json');
-        return this.http.post("http://10.10.13.40:8081/getsubmittedstudentbyid", obj, {
+            .set('Authorization', 'my-auth-token')
+            .set('Content-Type', 'application/json');
+        return this.http.post(this.url+"getsubmittedstudentbyid", obj, {
             headers: headers
-          });
+        });
     }
     public getquizdatabyid(obj) {
         const headers = new HttpHeaders()
-        .set('Authorization', 'my-auth-token')
-        .set('Content-Type', 'application/json');
-        return this.http.post("http://10.10.13.40:8081/getjsondataby", obj, {
+            .set('Authorization', 'my-auth-token')
+            .set('Content-Type', 'application/json');
+        return this.http.post(this.url+"getjsondataby", obj, {
             headers: headers
-          });
+        });
     }
     public getquizretdatabyid(obj) {
         const headers = new HttpHeaders()
-        .set('Authorization', 'my-auth-token')
-        .set('Content-Type', 'application/json');
-        return this.http.post("http://10.10.13.40:8081/getretjsondataby", obj, {
+            .set('Authorization', 'my-auth-token')
+            .set('Content-Type', 'application/json');
+        return this.http.post(this.url+"getretjsondataby", obj, {
             headers: headers
-          });
+        });
     }
     public publishquiz(obj) {
         const headers = new HttpHeaders()
-        .set('Authorization', 'my-auth-token')
-        .set('Content-Type', 'application/json');
-        return this.http.post("http://10.10.13.40:8081/publishquiz", obj, {
+            .set('Authorization', 'my-auth-token')
+            .set('Content-Type', 'application/json');
+        return this.http.post(this.url+"publishquiz", obj, {
             headers: headers
-          });
+        });
     }
-    public addstudentdata(obj){
+    public addstudentdata(obj) {
         const headers = new HttpHeaders()
-        .set('Authorization', 'my-auth-token')
-        .set('Content-Type', 'application/json');
-        return this.http.post("http://10.10.13.40:8081/putstudentdata", obj, {
+            .set('Authorization', 'my-auth-token')
+            .set('Content-Type', 'application/json');
+        return this.http.post(this.url+"putstudentdata", obj, {
             headers: headers
-          });
+        });
     }
-    public getloginstatus(obj){
+    public getloginstatus(obj) {
         const headers = new HttpHeaders()
-        .set('Authorization', 'my-auth-token')
-        .set('Content-Type', 'application/json');
-        return this.http.post("http://10.10.13.40:8081/getloginstatus", obj, {
+            .set('Authorization', 'my-auth-token')
+            .set('Content-Type', 'application/json');
+        return this.http.post(this.url+"getloginstatus", obj, {
             headers: headers
-          });
+        });
     }
-    public registeruser(obj){
-        
+    public registeruser(obj) {
+
         const headers = new HttpHeaders()
-        .set('Authorization', 'my-auth-token')
-        .set('Content-Type', 'application/json');
-        return this.http.post("http://10.10.13.40:8081/registeruser", obj, {
+            .set('Authorization', 'my-auth-token')
+            .set('Content-Type', 'application/json');
+        return this.http.post(this.url+"registeruser", obj, {
             headers: headers
-          });
+        });
     }
 }

@@ -1,5 +1,9 @@
-import { Component } from "@angular/core";
+import { Component, ElementRef, ViewChild } from "@angular/core";
+import * as jsPDF from 'jspdf';
+import 'jspdf-autotable'
+import { Router, UrlSerializer } from "@angular/router";
 import * as Survey from "survey-angular";
+import * as SurveyPDF from "survey-pdf";
 
 @Component({
     selector: "Studentresponse-page",
@@ -8,8 +12,23 @@ import * as Survey from "survey-angular";
 })
 export class StudentresponsePage {
     json;
+    teachername;
+    jsonres;
+    surveyPDF;
     ngOnInit() {
-        this.json = localStorage.getItem("ReviewOrgJson");
+        this.json = sessionStorage.getItem("ReviewOrgJson");
+        this.jsonres = sessionStorage.getItem("ReviewOrgJson1");
+    }
+    constructor(private router: Router) {
+    }
+    sendData(result) {
+        //TODO update with your own behavior
+        const surveyModel = new Survey.Model(this.json);
+    }
+    saveSurveyToPdf() {
+        
+        
+        
     }
 
 }

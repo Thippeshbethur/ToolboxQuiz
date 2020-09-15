@@ -1,134 +1,294 @@
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+  integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400" rel="stylesheet">
 <style>
+  
+  * {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
+
   body {
-    font-family: "Lato", sans-serif;
-  }
-
-
-
-  .main-head {
-    height: 150px;
-    background: #FFF;
-
-  }
-
-  .sidenav {
+    /* make the body full height*/
     height: 100%;
-    background-color: #000;
-    overflow-x: hidden;
-    padding-top: 20px;
+    /* set our custom font */
+    font-family: 'Roboto',
+      sans-serif;
+    /* create a linear gradient*/
+    background-image: linear-gradient(to right, var(--body_gradient_left), var(--body_gradient_right));
+    display: flex;
   }
 
-
-  .main {
-    padding: 0px 10px;
-    padding-bottom: 30px;
-    padding-top: 30px;
+  #form_wrapper {
+    /* this will help us center it*/
+    margin: auto;
+    /* make it a grid container*/
+    display: grid;
+    /* with two columns of same width*/
+    grid-template-columns: 1fr 1fr;
+    /* with a small gap in between them*/
+    grid-gap: 5vw;
+    /* add some padding around */
+    padding: 5vh 15px;
+    background: rgb(193, 191, 191);
+    background: linear-gradient(144deg, rgba(193, 191, 191, 1) 19%, rgba(250, 248, 248, 1) 53%);
+    height: 90vh;
   }
 
-  @media screen and (max-height: 450px) {
-    .sidenav {
-      padding-top: 15px;
+  #form_left {
+    /* center the image */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #form_left img {
+    width: auto;
+    height: auto;
+
+  }
+
+  #form_right {
+    display: grid;
+    /* single column layout */
+    grid-template-columns: 1fr;
+    /* have some gap in between elements*/
+    grid-gap: 20px;
+    padding: 10% 5%;
+    background: #365b78;
+    height: 500px;
+    margin-top: 70px;
+    border-radius: 50px;
+    -webkit-box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0, 0, 0, 0);
+    box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0, 0, 0, 0);
+  }
+  #form_right1 {
+    display: grid;
+    /* single column layout */
+    grid-template-columns: 1fr;
+    /* have some gap in between elements*/
+    grid-gap: 20px;
+    padding: 10% 5%;
+    background: #365b78;
+    height: 500px;
+    margin-top: 70px;
+    border-radius: 50px;
+    -webkit-box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0, 0, 0, 0);
+    box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0, 0, 0, 0);
+  }
+  .input_container {
+    background-color: var(--input_bg);
+    /* vertically align icon and text inside the div*/
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .input_container:hover {
+    background-color: #eeeded;
+  }
+
+  .input_container,
+  #input_submit,#input_register {
+    height: 70px;
+    background: #eeeded;
+    /* make the borders more round */
+    border-radius: 30px;
+    width: 100%;
+    color: black !important;
+  }
+
+  .input_field {
+    /* customize the input tag with lighter font and some padding*/
+    color: black;
+    background-color: inherit;
+    width: 90%;
+    border: none;
+    font-size: 1.3rem;
+    font-weight: 400;
+    border-radius: 10px;
+    padding-left: 30px;
+  }
+
+  .input_field:hover,
+  .input_field:focus {
+    /* remove the outline */
+    outline: none;
+  }
+
+  #input_submit,#input_register {
+    /* submit button has a different color and different padding */
+    background-color: #eeeded;
+    padding-left: 0;
+    font-weight: bold;
+    color: white;
+    text-transform: uppercase;
+  }
+
+  #input_submit:hover,#input_register:hover {
+    background-color: #eeeded;
+    /* simple color transition on hover */
+    transition: background-color,
+      1s;
+    cursor: pointer;
+  }
+
+  h1,
+  span {
+    text-align: center;
+  }
+
+  /* shift it a bit lower */
+  #create_account {
+    display: block;
+    position: relative;
+  }
+  #login_account {
+    display: block;
+    position: relative;
+  }
+
+  a {
+    /* remove default underline */
+    text-decoration: none;
+    color: var(--submit_bg);
+    font-weight: bold;
+  }
+
+  a:hover {
+    color: var(--submit_hover);
+  }
+
+  i {
+    color: var(--icon_color);
+  }
+
+  /* make it responsive */
+  @media screen and (max-width:768px) {
+
+    /* make the layout  a single column and add some margin to the wrapper */
+    #form_wrapper {
+      grid-template-columns: 1fr;
+      margin-left: 10px;
+      margin-right: 10px;
+      height: 100%;
+    }
+
+    /* on small screen we don't display the image */
+    #form_left {
+      display: none;
     }
   }
 
-  @media screen and (max-width: 450px) {
-    .login-form {
-      margin-top: 10%;
-    }
-
-    .register-form {
-      margin-top: 10%;
-    }
-  }
-
-  @media screen and (min-width: 768px) {
-    .main {
-      margin-left: 40%;
-    }
-
-    .sidenav {
-      width: 40%;
-      position: fixed;
-      z-index: 1;
-      top: 0;
-      left: 0;
-    }
-
-    .login-form {
-      margin-top: 10%;
-    }
-
-    .register-form {
-      margin-top: 20%;
-    }
-  }
-
-
-  .login-main-text {
-    margin-top: 20%;
-    padding: 60px;
-    color: #fff;
-  }
-
-  .login-main-text h2 {
-    font-weight: 300;
-  }
-
-  .btn-black {
-    background-color: #000 !important;
-    color: #fff;
-  }
-
-  .sidenav {
-    height: 100%;
-    background-color: #343a40;
-    overflow-x: hidden;
-    padding-top: 20px;
+  ::ng-deep .mat-form-field-underline {
+    display: none;
   }
 
 </style>
 
 <!------ Include the above in your HEAD tag ---------->
 
-<div class="sidenav">
-  <div class="login-main-text">
-    <mat-icon class="rounded-circle border" matListAvatar [routerLink]="['/']">arrow_back</mat-icon>
-    <h2>Quiz Tool</h2>
-    <p>Login or register from here to access.</p>
-  </div>
-</div>
-<div class="main">
-  <div class="col-md-6 col-sm-12">
-    <div class="login-form">
-        <div id="Logindiv">
-          <div class="form-group">
-            <h2>Login </h2>
-            <label>User Name</label>
-            <input type="text" class="form-control" placeholder="User Name" [(ngModel)]='lusername' >
-          </div>
-          <div class="form-group">
-            <label>Password</label>
-            <input type="password" class="form-control" placeholder="Password" [(ngModel)]="lpassword">
-          </div>
-          <button type="submit" class="btn btn-primary mr-2" (click)="validatelogin()">Login</button>
-          <button class="btn btn-secondary" (click)="Registerpage()">Register?</button>
-        </div>
-        <div id="Registerdiv" style="display: none;">
-          <div class="form-group">
-            <h2>Register </h2>
-            <label>User Name</label>
-            <input type="text" class="form-control" placeholder="User Name" [(ngModel)]="username">
-          </div>
-          <div class="form-group">
-            <label>Password</label>
-            <input type="password" class="form-control" placeholder="Password" [(ngModel)]="password">
-          </div>
-          <button type="submit" class="btn btn-primary mr-2" (click)="validateregister()">Register</button>
-          <button class="btn btn-secondary" (click)="loginpage()">Login?</button>
-        </div>
+
+<form [formGroup]="Loginform" (ngSubmit)="validatelogin()" id="formlogin">
+  <div id="form_wrapper">
+    <div id="form_left">
+      <img src="assets/quiz_img.png" class="img-fluid rounded-circle" alt="computer icon">
     </div>
+    <div id="form_right" >
+      <h1 class="text-light">Teacher Login</h1>
+      <div class="input_container">
+        <i class="fas fa-user"></i>
+        <mat-form-field class="example-full-width pl-3 w-100">
+          <mat-label>Username</mat-label>
+          <input matInput formControlName="username" placeholder="Ex. example" id="Username" required>
+          <mat-error *ngIf="checkError('username', 'required')">
+            Enter Username
+          </mat-error>
+          <mat-error *ngIf="checkError('username', 'minlength')">
+            Minimum 6 character
+          </mat-error>
+
+        </mat-form-field>
+      </div>
+      <div class="input_container">
+        <i class="fas fa-lock"></i>
+        <mat-form-field class="example-full-width pl-3 w-100">
+          <mat-label>Password</mat-label>
+          <input matInput type="password" formControlName="password" id="password" placeholder="*******" required>
+          <mat-error *ngIf="checkError('password', 'required')">
+            Enter Password
+          </mat-error>
+          <mat-error *ngIf="checkError('password', 'minlength')">
+            Minimum 3 character
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="input-container">
+
+        <input mat-raised-button type="submit" value="Login" id='input_submit' class='btn primary'
+          (ngSubmit)="validatelogin()">
+      </div>
+
+      <!-- <span>Forgot <a href="#"> Username / Password ?</a></span> -->
+      <span id='create_account' (click)="Registerpage()">
+          <a href="#">Create your account ➡ </a>
+      </span>
+    </div>
+    
   </div>
-</div>
+</form>
+<form [formGroup]="Loginform" (ngSubmit)="validateregister()"  style="display: none;" id="formregister">
+  <div id="form_wrapper">
+    <div id="form_left">
+      <img src="assets/quiz_img.png" class="img-fluid rounded-circle" alt="computer icon">
+    </div>
+    <div id="form_right1">
+      <h1 class="text-light">Teacher Register</h1>
+      <div class="input_container">
+        <i class="fas fa-user"></i>
+        <mat-form-field class="example-full-width pl-3 w-100">
+          <mat-label>Username</mat-label>
+          <input matInput formControlName="username" placeholder="Ex. example" id="Username" required>
+          <mat-error *ngIf="checkError('username', 'required')">
+            Enter Username
+          </mat-error>
+          <mat-error *ngIf="checkError('username', 'minlength')">
+            Minimum 6 character
+          </mat-error>
+
+        </mat-form-field>
+      </div>
+      <div class="input_container">
+        <i class="fas fa-lock"></i>
+        <mat-form-field class="example-full-width pl-3 w-100">
+          <mat-label>Password</mat-label>
+          <input matInput type="password" formControlName="password" id="password" placeholder="*******" required>
+          <mat-error *ngIf="checkError('password', 'required')">
+            Enter Password
+          </mat-error>
+          <mat-error *ngIf="checkError('password', 'minlength')">
+            Minimum 3 character
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="input-container">
+
+        <input mat-raised-button type="submit" value="Register" id='input_register' class='btn primary'
+          (ngSubmit)="validateregister()">
+      </div>
+
+      <!-- <span>Forgot <a href="#"> Username / Password ?</a></span> -->
+      <span id='login_account' (click)="loginpage()">
+        <a href="#">Login your account ➡ </a>
+    </span>
+    </div>
+    
+  </div>
+</form>

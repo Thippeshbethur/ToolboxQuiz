@@ -1,26 +1,34 @@
-<h2 mat-dialog-title style="display: inline-block;">Publish Quiz</h2>
-<button mat-button mat-dialog-close class="float-right">
-  <span id="canelbtn" class="material-icons">close</span>
-</button>
-<mat-divider></mat-divider>
-<mat-dialog-content class="mat-typography">
-  <mat-form-field class="md-input-has-placeholder">
-    <input matInput id="startpicker1" type="datetime-local" placeholder="start date" value="2018-06-12T19:30"
-    min="2018-06-07T00:00" max="2050-06-14T00:00">
-    <div class="md-errors-spacer"></div>
-  </mat-form-field> 
-  <div class="clearfix">&nbsp;</div>
-  <mat-form-field class="md-input-has-placeholder">
-    <input matInput id="endpicker1" type="datetime-local" placeholder="End date" value="2018-06-12T19:30"
-    min="2018-06-07T00:00" max="2050-06-14T00:00">
-  </mat-form-field>
-  <div class="clearfix">&nbsp;</div> 
-  <mat-form-field class="md-input-has-placeholder">
-    <input matInput [(ngModel)]='Nostud' placeholder="Enter how many students can take the Quiz" required>
-  </mat-form-field> 
+<div class="publishpage">
+  <h2 mat-dialog-title style="display: inline-block;">Publish Quiz</h2>
+  <button mat-button mat-dialog-close class="float-right">
+    <span id="canelbtn" class="material-icons">close</span>
+  </button>
+  <mat-divider></mat-divider>
+  <form [formGroup]="PublishForm" (ngSubmit)="publishdata()">
+    <mat-dialog-content class="mat-typography">
+      <div class="clearfix">&nbsp;</div>
+      <mat-form-field class="md-input-has-placeholder" style="width:100%">
+        <input matInput id="startpicker1" type="datetime-local" formControlName="startpicker1" placeholder="start date" value="{{date}}"
+          min="{{minDate}}" max="{{maxDate}}">
+        <mat-error *ngIf="checkError('startpicker1', 'required')">Invalid Date</mat-error>
+      </mat-form-field>
+      <div class="clearfix">&nbsp;</div>
+      <mat-form-field class="md-input-has-placeholder" style="width:100%">
+        <input matInput id="endpicker1" type="datetime-local" formControlName="endpicker1" placeholder="End date" value="{{date}}"
+          min="{{minDate}}" max="{{maxDate}}" >        
+        <mat-error *ngIf="checkError('endpicker1', 'required')">Invalid Date</mat-error>
+      </mat-form-field>
+      <div class="clearfix">&nbsp;</div>
+      <mat-form-field class="md-input-has-placeholder" style="width:100%">
+        <input matInput [(ngModel)]='Nostud'  formControlName="studentval" placeholder="Enter how many students can take the Quiz" required>
+        <mat-error *ngIf="checkError('studentval', 'required')">Student Number is required</mat-error>
+      </mat-form-field>
   
-</mat-dialog-content>
-<mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close id="canelbtn">Cancel</button>
-  <button mat-button  (click)='publishdata()' cdkFocusInitial>Publish</button>
-</mat-dialog-actions>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+      <button mat-button mat-dialog-close id="canelbtn">Cancel</button>
+      <button mat-button cdkFocusInitial>Publish</button>
+    </mat-dialog-actions>
+  
+  </form>
+  </div>

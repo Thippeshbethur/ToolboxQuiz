@@ -1,11 +1,15 @@
 <div id="app" class="scrollbar scrollbar-secondary">
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="/home" [class.disabled]="disabled ? true: null" *ngIf="router.url == '/home'||router.url.indexOf('/creator')==0||router.url == '/quizlist'||router.url == '/analytics'||router.url=='/'">{{ title }}</a>
-    <a class="navbar-brand" [href]="Studentroute" [class.disabled]="disabled ? true: null" *ngIf="router.url != '/home' && router.url.indexOf('/creator')!=0  && router.url != '/quizlist' && router.url != '/analytics' && router.url!='/'">{{ title }}</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+  <nav class="navbar navbar-expand-lg navbar-light white fixed-top bg-white">
+    <a class="navbar-brand" href="/home" [class.disabled]="disabled ? true: null"
+      *ngIf="router.url == '/home'||router.url.indexOf('/creator')==0||router.url == '/quizlist'||router.url == '/analytics'||router.url=='/'">{{ title }}</a>
+    <a class="navbar-brand" [href]="Studentroute" [class.disabled]="disabled ? true: null"
+      *ngIf="router.url != '/home' && router.url.indexOf('/creator')!=0  && router.url != '/quizlist' && router.url != '/analytics' && router.url!='/'">{{ title }}</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNav" *ngIf="router.url == '/home'||router.url.indexOf('/creator')==0||router.url == '/quizlist'||router.url == '/analytics'||router.url=='/'">
+    <div class="collapse navbar-collapse" id="navbarNav"
+      *ngIf="router.url == '/home'||router.url.indexOf('/creator')==0||router.url == '/quizlist'||router.url == '/analytics'">
       <ul class="navbar-nav">
         <li class="nav-item" routerLinkActive='link-active'>
           <a class="nav-link" routerLink="/home">Home <span class="sr-only">(current)</span></a>
@@ -18,20 +22,24 @@
         </li>
       </ul>
     </div>
-    <div class="btn-group" role="group" *ngIf="router.url == '/home'||router.url.indexOf('/std')==0||router.url.indexOf('/creator')==0||router.url == '/quizlist'||router.url == '/analytics'">
-      <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">        
+    <div class="btn-group" role="group"
+      *ngIf="router.url == '/home'||router.url.indexOf('/std')==0||router.url.indexOf('/creator')==0||router.url == '/quizlist'||router.url == '/analytics'">
+      <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false">
       </button>
       <div class="dropdown-menu" aria-labelledby="btnGroupDrop1" (click)="logout()">
         <a class="dropdown-item">Logout</a>
       </div>
     </div>
-      <div class="btn-group" role="group" *ngIf="router.url != '/home' && router.url.indexOf('/creator')!=0 && router.url.indexOf('/student')>-1 && router.url != '/quizlist' && router.url != '/analytics' && router.url!='/'">
-        <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">          
-        </button>
-        <div class="dropdown-menu" aria-labelledby="btnGroupDrop1" (click)="logout()">
-          <a class="dropdown-item">Logout</a>
-        </div>
-      </div>  
+    <div class="btn-group" role="group"
+      *ngIf="router.url != '/home' && router.url.indexOf('/creator')!=0 && router.url.indexOf('/student')>-1 && router.url != '/quizlist' && router.url != '/analytics' && router.url!='/'">
+      <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false">
+      </button>
+      <div class="dropdown-menu" aria-labelledby="btnGroupDrop1" (click)="logout()">
+        <a class="dropdown-item">Logout</a>
+      </div>
+    </div>
   </nav>
   <mat-menu #menu="matMenu">
     <button mat-menu-item (click)='logout()' class="logoutdiv">
@@ -50,8 +58,9 @@
   <div class="clearfix">&nbsp;</div>
   <footer class="page-footer footer font-small blue navbar-dark bg-dark">
     <!-- Copyright -->
-    <div class="footer-copyright text-center py-3">
+    <div class="footer-copyright text-left p-2">
+      Copyright © 2020-21 ExcelSoft Technologies Pvt.Ltd. All rights reserved
     </div>
-    <!-- Copyright -->  
-  </footer>  
+    <!-- Copyright -->
+  </footer>
 </div>

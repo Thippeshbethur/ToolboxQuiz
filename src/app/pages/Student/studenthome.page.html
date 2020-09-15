@@ -47,6 +47,9 @@
   @media screen and (min-width: 768px) {
     .main {
       margin-left: 40%;
+      background: #EEE;
+      height: 100%;
+      padding-top: 10%;
     }
 
     .sidenav {
@@ -88,23 +91,26 @@
     overflow-x: hidden;
     padding-top: 20px;
   }
-
+.container{
+  height: 100%;
+}
 </style>
 
 <!------ Include the above in your HEAD tag ---------->
 
 <div class="sidenav">
   <div class="login-main-text">
-    <mat-icon class="rounded-circle border" matListAvatar [routerLink]="['/StudentdashboardPage']">arrow_back</mat-icon>
+    
     <div class="clearfix"></div>
     <h2>Quiz Tool</h2>
     <p>Take the Quiz from here.</p>
   </div>
 </div>
+
 <div class="main">
   <div class="col-md-6 col-sm-12">
     <div class="login-form">
-        <div id="Logindiv" [hidden]="status=='S003'">
+        <div id="Logindiv" *ngIf="status=='S001'">
           <div class="form-group">
             <h2>Quiz </h2>
             <label>Student Name</label>
@@ -112,10 +118,14 @@
           </div>          
           <button type="submit" class="btn btn-primary mr-2" (click)="routgen()">Take Quiz</button>          
         </div>   
-        <div [hidden]="status=='S001'">
+        <div *ngIf="status=='S003'">
           <h2>Quiz </h2>
           <label>Quiz Already reached the limit please check with your teacher</label>
-        </div>     
+        </div>  
+        <div *ngIf="status=='S002'">
+          <h2>Quiz </h2>
+          <label>Please enter the correct Quiz Code</label>
+        </div>   
     </div>
   </div>
 </div>

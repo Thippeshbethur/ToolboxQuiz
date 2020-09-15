@@ -1,3 +1,11 @@
+<script src="https://surveyjs.azureedge.net/1.0.64/survey.jquery.js"></script>
 
-<survey [json]="json" (submitSurvey)="sendData($event)"></survey>
-<div id="surveyResult"></div> 
+<div [ngClass]="{'container': router.url.indexOf('/student')>0,'container1': router.url.indexOf('/student')<0}">
+    <div class="clearfix">&nbsp;</div>
+    <survey [json]="json" (submitSurvey)="sendData($event)"></survey>
+    <div class="clearfix">&nbsp;</div>
+    <div id="surveyResult"></div> 
+    <div class="clearfix">&nbsp;</div>
+    
+</div>
+

@@ -1,6 +1,7 @@
 <style>
   .container {
-    padding: 16px;
+    padding: 5px;
+    margin-top: 15px;
     text-align: center;
   }
 </style>
@@ -14,7 +15,7 @@
 </div>
 <div class="clearfix">&nbsp;</div>
 <mat-divider></mat-divider>
-<div class="container">
+<div class="pt-3">
   <div class="col-sm-12 col-xs-12 col-md-12">
     <mat-label>Are you sure? You want to delete the Quiz</mat-label>
   </div>
@@ -22,7 +23,7 @@
   <mat-divider></mat-divider>
   <div class="clearfix">&nbsp;</div>
   <div class="col-sm-12 col-xs-12 col-md-12">
-    <button mat-button color="success" (click)="deletequiz()">Confirm</button>
-    <button mat-button color="warn" mat-dialog-close id="cancelbtn">Cancel</button>
+    <button mat-button color="success" class="col-sm-6" (click)="deletequiz()">Confirm</button>
+    <button mat-button color="warn" class="col-sm-6" mat-dialog-close id="cancelbtn">Cancel</button>
   </div>
 </div>

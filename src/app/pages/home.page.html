@@ -1,6 +1,64 @@
-<div class="container">
-  <div class="col-lg-3 centered">
-    <img src="/Toolboxquiz/assets/logo.svg" />
+<style>
+  .card{
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
+  }
+  .mat-icon{
+   width: 100% !important; 
+   height: auto !important;
+  }
+</style>
+
+<div class="clearfix"></div>
+
+<div class="container" style="background: #eee;">
+  <div class="row p-5">
+    <div class="col-md-3">
+      <div class="card card-stats" [routerLink]="['/creator']">
+        <div class="card-header card-header-warning card-header-icon mb-3">
+          <div class="card-icon">
+            <mat-icon>add</mat-icon>
+          </div>
+          <p class="card-category font-weight-bold ">Create</p>
+          <!-- <h5 class="card-title">Total Quiz:{{quizcount}}</h5> -->
+        </div>
+        <div class="card-footer" style="background: #fff;">
+          <div class="stats">
+            <!-- <i class="material-icons">date_range</i>  -->
+            Total Quiz&nbsp;:&nbsp;{{quizcount}}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card card-stats" [routerLink]="['/quizlist']">
+        <div class="card-header card-header-success card-header-icon mb-3">
+          <div class="card-icon">
+            <mat-icon>view_list</mat-icon>
+          </div>
+          <p class="card-category font-weight-bold ">Quizes</p>
+          <!-- <h5 class="card-title">Published Count:{{Published}}</h5> -->
+        
+        </div>
+        <div class="card-footer" style="background: #fff;">
+          <div class="stats">
+            <!-- <i class="material-icons">date_range</i>  -->
+            Published Count&nbsp;:&nbsp;{{Published}}
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
+  <!--row end-->
+  <div class="clearfix"></div>
+  
+  <div class="row px-5 pt-3" style="display: none;">
+    <div class="card col-md-12">
+      <canvas id="myChart" width="700" height="250" #mychart></canvas>
+    </div>
+  </div>
+  <!--row end-->
+
+  
 
 </div>
+<!--container end-->

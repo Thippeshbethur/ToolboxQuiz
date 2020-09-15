@@ -1,7 +1,8 @@
 <style>
   .container {
-    padding: 16px;
+    padding: 5px;
     text-align: center;
+    margin-top: 10px;
   }
 </style>
 <h3 style="display: inline-block;">Generate Url</h3>
@@ -10,15 +11,15 @@
 </button>
 <div class="clearfix">&nbsp;</div>
 <mat-divider></mat-divider>
-<div class="container">
+<div class="">
 <div class="clearfix">&nbsp;</div>
-<input type="text"  value="{{url}}" #userinput readonly style="margin-right: 10px;">
+<input type="text"  value="{{url}}" #userinput readonly style="margin-right: 10px;width: 300px;">
 <span class="material-icons" (click)="copyInputMessage(userinput)" >
   content_copy
 </span>
 <div class="clearfix">&nbsp;</div>
   <mat-divider></mat-divider>
   <div class="col-sm-12 col-xs-12 col-md-12">
-    <button mat-button color="warn" mat-dialog-close id="closebtn">Close</button>
+    <button mat-button color="warn" mat-dialog-close id="closebtn" class="col-sm-12 col-xs-12 col-md-12">Close</button>
   </div>
 </div>

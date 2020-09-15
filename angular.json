@@ -77,6 +77,14 @@
                   "with": "src/environments/environment.prod.ts"
                 }
               ]
+            },
+            "es": {
+              "aot": true,
+              "outputPath": "dist/under-construction-es/",
+              "i18nFile": "src/locale/messages.xlf",
+              "i18nFormat": "xlf",
+              "i18nLocale": "es",
+              "i18nMissingTranslation": "error"
             }
           }
         },
@@ -88,6 +96,9 @@
           "configurations": {
             "production": {
               "browserTarget": "surveyjs-angular-cli:build:production"
+            },
+            "es": {
+              "browserTarget": "surveyjs-angular-cli:build:es"
             }
           }
         },
@@ -108,7 +119,8 @@
               "node_modules/jquery/dist/jquery.js",
               "node_modules/jquery-ui/ui/widgets/datepicker.js",
               "node_modules/select2/dist/js/select2.js",
-              "node_modules/jquery-bar-rating/dist/jquery.barrating.min.js"
+              "node_modules/jquery-bar-rating/dist/jquery.barrating.min.js",
+              "node_modules/jspdf/dist/jspdf.min.js"
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
@@ -131,7 +143,8 @@
               "node_modules/jquery-bar-rating/dist/themes/bars-reversed.css",
               "node_modules/jquery-bar-rating/dist/themes/bars-square.css",
               "node_modules/jquery-bar-rating/dist/themes/bootstrap-stars.css",
-              "node_modules/jquery-bar-rating/dist/themes/fontawesome-stars-o.css"
+              "node_modules/jquery-bar-rating/dist/themes/fontawesome-stars-o.css",
+              "node_modules/chart.js/dist/Chart.min.js"
             ],
             "assets": [
               "src/assets",

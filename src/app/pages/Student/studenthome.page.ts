@@ -16,25 +16,27 @@ export class StudenthomePage {
     quizid: any;
     Studentname: any = '';
     Studentroute;
-    disabled=true
+    disabled=true;
+    curr;
     constructor(private QuizService: QuizService, private router: Router, private _snackBar: MatSnackBar) {
-        localStorage.clear()
+        sessionStorage.clear()
         var quizid1 = this.router.url;
         var valufin = quizid1.replace('/', '');
-        var currentdate=new Date();
-        console.log(currentdate);
         this.quizid = valufin;
-        localStorage.setItem("quizid",valufin);
-
+        sessionStorage.setItem("quizid",valufin);
+        this.curr=new Date().toISOString();
         var jsonobj = [
             {
                 "id": valufin,
                 "ispublished": 1,
-                
-                "startdate":{$lt:currentdate}
+                "startdate":{$lte:this.curr},
+                "enddate":{$gte:this.curr}
             }];
-        this.QuizService.getquizbyid(JSON.stringify(jsonobj))
+            setTimeout(() => {
+                this.QuizService.getquizstatusbyid(JSON.stringify(jsonobj))
             .subscribe(data => this.status = (JSON.parse(JSON.stringify(data))['status']));
+            }, 100);
+        
 
 
     }
@@ -64,13 +66,12 @@ export class StudenthomePage {
                
             });
             snackBarRef.onAction().subscribe(() => {
-                console.log('The snack-bar action was triggered!');
             });
         }
         else {
             var encryptedval = CryptoJS.AES.encrypt(obj.trim(), 'q').toString();
-            localStorage.setItem("sid",encryptedval)
-            localStorage.setItem("studname",this.Studentname)
+            sessionStorage.setItem("sid",encryptedval)
+            sessionStorage.setItem("studname",this.Studentname)
             var quizid = this.router.url;
             var valufin = quizid.split('/')[1];
         var jsonobj = [
@@ -79,7 +80,7 @@ export class StudenthomePage {
                 "ispublished": 1
             }];
         this.QuizService.getquizretdatabyid(JSON.stringify(jsonobj))
-            .subscribe(data => {localStorage.setItem("editjson",JSON.stringify(data))});
+            .subscribe(data => {sessionStorage.setItem("editjson",JSON.stringify(data))});
                 var encryptedval = CryptoJS.AES.encrypt(valufin.trim(), 'q').toString();
             setTimeout(() => {
                 this.router.navigate([this.quizid + "/student"], { queryParams: { Qid: encryptedval } })

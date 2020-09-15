@@ -24,3 +24,24 @@
     .material-icons{
         cursor: pointer;
       }
+      .container{
+        background: #eee;
+        margin-top: 70px;
+        max-width: 98% !important;
+      }
+      .container1{
+        background: #eee;
+      }
+      @media (min-width: 1200px){
+        .container, .container-lg, .container-md, .container-sm, .container-xl {
+            max-width: 1140px;
+        }
+      }
+      .sidenav{
+        background: #555 !important;
+      }
+      .pdfexport {
+        display: inline-block;
+        margin-left: 85%;
+        cursor: pointer;
+      }
