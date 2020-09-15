@@ -5,7 +5,7 @@ var fs = require("fs");
 const cors = require('cors');
 var bodyParser = require('body-parser');
 var MongoClient = require('mongodb').MongoClient;
-var url = "mongodb://192.168.1.110:27017/ToolBoxQuiz";
+var url = "mongodb://localhost:27017/ToolBoxQuiz";
 var database;
 
 var bodyParser = require('body-parser');
@@ -53,9 +53,6 @@ app.post('/updatestudentsubmitteddata', function (req, resp) {
   var data = JSON.stringify(req.body).trim();
   var submittedjson=JSON.parse(data)['submittedans'];
   var score=JSON.parse(data)['Score'];
-  var Percentage=JSON.parse(data)['Percentage'];
-  var Submitteddate=JSON.parse(data)['Submitteddate'];
-  
   var myquery = {
     'id': JSON.parse(data)['quizid']
   };
@@ -65,8 +62,6 @@ app.post('/updatestudentsubmitteddata', function (req, resp) {
       "Submitteddata":submittedjson ,
       "issubmitted": 1, 
       "Score":score,
-      "Percentage":Percentage,
-      "Submitteddate":Submitteddate
     }
   };
   dbo.collection("Studentdata").updateOne(myquery, newvalues, function (err, res) {
@@ -76,7 +71,9 @@ app.post('/updatestudentsubmitteddata', function (req, resp) {
     });
     console.log("1 document updated");
   });
-});
+})
+
+
 app.post('/putjsondata', function (req, res) {
   var currtim=new Date().toLocaleString().toString();
   var curr=new Date(currtim).toLocaleString();
@@ -372,6 +369,8 @@ app.post('/getsubmittedstudentbyid', function (req, res) {
     res.send(result);
   });
 });
+
+
 app.get('/index', function (req, res) {
   fs.readFile(__dirname + "/" + "index.html", 'utf8', function (err, data) {
     console.log(err);

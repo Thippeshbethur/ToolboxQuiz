@@ -44,7 +44,7 @@ export class AppComponent extends MatPaginatorIntl {
     //   });
     //   snackBarRef.onAction().subscribe(() => {
     //     console.log(this.idleState);
-    //     localStorage.clear();
+    //     sessionStorage.clear();
     //     this.router.navigate(['/']);
     //   });
 
@@ -73,19 +73,25 @@ export class AppComponent extends MatPaginatorIntl {
     this.loaddata();
     console.log(this._config)
     console.log(this.getconfigkey('url'))
-    this.username = localStorage.getItem('studname')
-    this.teachername = localStorage.getItem('teachername');
+    this.username = sessionStorage.getItem('studname')
+    this.teachername = sessionStorage.getItem('teachername');
     if (this.teachername == undefined && this.username == undefined) {
-      this.logout();
+      // this.logout();
     }
     setTimeout(() => {
-      this.Studentroute = '/' + localStorage.getItem("quizid")
+      this.Studentroute = '/' + sessionStorage.getItem("quizid")
     }, 500);
 
   }
   logout() {
-    this.router.navigate(["/"]);
-    localStorage.clear();
+    if(sessionStorage.getItem("sid")!=undefined){
+      this.router.navigate(["/"+sessionStorage.getItem("quizid")]);
+    }
+    else{
+      this.router.navigate(["/"]);
+    }
+    
+    sessionStorage.clear();
   }
   reset() {
     this.idle.watch();

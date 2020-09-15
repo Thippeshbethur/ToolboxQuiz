@@ -14,7 +14,7 @@ import { StudentQuizPage } from "./pages/Student/StudentQuiz.page";
 import { StudentdashboardPage } from "./pages/Student/Studentdashboard.page";
 
 const routes: Routes = [
-  { path: "", component: LoginNavPage },
+  { path: "", component: LoginPage },
   { path: "login", component: LoginPage },
   { path: "home", component: HomePage },
   { path: "survey", component: SurveyPage },
@@ -31,7 +31,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {useHash: true})],
   exports: [RouterModule],
 })
 export class AppRoutingModule { }

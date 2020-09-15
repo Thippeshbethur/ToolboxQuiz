@@ -14,21 +14,21 @@ export class SurveyPage {
   json;
   teachername;
   constructor(public router: Router) {
-    this.teachername=localStorage.getItem('teachername');
+    this.teachername=sessionStorage.getItem('teachername');
     if(this.teachername==undefined )
     {
       this.logout();
     }else{
-      if(localStorage.getItem('jsondata')!=undefined){
-        this.json=localStorage.getItem('jsondata');
+      if(sessionStorage.getItem('jsondata')!=undefined){
+        this.json=sessionStorage.getItem('jsondata');
       }else{
         this.json = json;
-      }
+      } 
     }    
   }
   logout() {
     this.router.navigate(["/"]);
-    localStorage.clear();
+    sessionStorage.clear();
   }
   sendData(result) {
     const surveyModel = new Survey.Model(this.json);

@@ -1,38 +1,79 @@
-<div class="container">
+<style>
+  @media print {
+   .hidetdonprint {
+      display: none;
+   }
+}
+</style>
+<div class="container" >
   <div class="login-main-text pt-2">
-    <mat-icon class="rounded-circle border border-dark" matListAvatar [routerLink]="['/quizlist']">arrow_back</mat-icon>
-    <div style="display: inline-block;position: relative;" class="mb-2 font-weight-bold pl-2"><span>Back</span></div>
+    <a href="#" [routerLink]="['/quizlist']" ><span class="material-icons">
+      keyboard_backspace
+    </span><span style="position: relative;top: -9px;left: 10px;font-size: 25px;">Back</span>
+    </a> 
+    <div class="pdfexport" title="Pdf Export" (click)="downloadPdf()">
+      <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-file-earmark-arrow-down-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" d="M2 2a2 2 0 0 1 2-2h5.293A1 1 0 0 1 10 .293L13.707 4a1 1 0 0 1 .293.707V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2zm7 2l.5-2.5 3 3L10 5a1 1 0 0 1-1-1zm-.5 3.5a.5.5 0 0 0-1 0v3.793l-1.146-1.147a.5.5 0 0 0-.708.708l2 2a.5.5 0 0 0 .708 0l2-2a.5.5 0 0 0-.708-.708L8.5 11.293V7.5z"/>
+      </svg>
+    </div>  
+    
+    
     <div class="clearfix"></div>
   </div>
-  <div class="grid-main mb-5">
-    <table class="grid-table " width="100%" border="0" cellspacing="0" cellpadding="0">
-      <thead class="p-2">
+  <div  id="reportContent" #reportContent>
+  <div class="col-lg-12 col-sm-12 col-12 table-responsive pt-4">
+    <div class="col-lg-12 col-sm-12">
+        <mat-label>Quiz Title: {{quiztitle}} </mat-label>
+        <div class="clearfix"></div>
+        <mat-label>Quiz Description:{{quizdesc}}</mat-label>
+        <div class="clearfix">&nbsp;</div>
+    </div>
+    <table class="table table-striped table-hover table-borderded" width="100%" border="0" cellspacing="0" cellpadding="0" id="my-table">
+      <thead class="p-2 bg-dark text-light">
         <tr>
-          <td class="pt-2  pb-2  border-right">Id</td>
-          <td class="pt-2  pb-2  border-right">Student Id</td>
-          <td class="pt-2  pb-2  border-right">Student Name</td>
-          <td class="pt-2  pb-2  border-right">Student score</td>
-          <td class="pt-2  pb-2 border-right">Student Response</td>
+          <td class="">Id</td>
+          <!-- <td class="">Student Id</td> -->
+          <td class="">Student Name</td>
+          <td class="" style="width: 235px;">Score (Obtained Score/Total Score)</td>
+          <td class="">Percentage</td>
+          <td class="">Submitteddate</td>
+          <td class="" id="stdres" >Student Response</td>
         </tr>
       </thead>
       <tr *ngFor="let item of studentdata; let i = index" >
-        <td class="pt-2  pb-2  border-right border-bottom">{{i+1}} </td>
-        <td class="pt-2  pb-2  border-right border-bottom">{{item.id}} </td>
-        <td class="pt-2  pb-2  border-right border-bottom">{{item.studentname}} </td>
-        <td class="pt-2  pb-2 pl-3 pr-3 border-right border-bottom">
-          <div class="progress-bar" role="progressbar" [hidden]="!item.Score" [ngStyle]="{ 'width': item.Score + '%' }" aria-valuenow="25" aria-valuemin="0"
-            aria-valuemax="100">{{item.Score}} %</div>
-          <div [hidden]="item.Score" >NA </div>
+        <td class="pt-2 pb-2">{{i+1}} </td>
+        <!-- <td class="pt-2 pb-2">{{item.id}} </td> -->
+        <td class="pt-2 pb-2">{{item.studentname}} </td>
+        <td class="pt-2 pb-2">
+          <div *ngIf="item.Score!=undefined">{{item.Score }}</div>
+          <div *ngIf="item.Score==undefined" >Not Submitted </div>
         </td>
-        <td class="pt-2 pb-2 border-bottom">
-          <span class="material-icons" [hidden]="!item.issubmitted" (click)="review(item.Submitteddata)" title="Review">
-            play_circle_filled
-          </span>
-          <span class="font-weight-bold" style="cursor: default;" [hidden]="item.issubmitted">
+        <td class="pt-2 pb-2">
+          <div class="progress-bar" role="progressbar" *ngIf="item.Percentage!=undefined && item.Percentage!=0"  [ngStyle]="{ 'width': item.Percentage + '%' }" aria-valuenow="25" aria-valuemin="0"
+            aria-valuemax="100">{{item.Percentage | number }} %</div>
+          <div class="progress-bar" role="progressbar" *ngIf="item.Percentage==0"  [ngStyle]="{ 'width': '100%','background-color': '#eee','color': 'black' }" aria-valuenow="25" aria-valuemin="0"
+            aria-valuemax="100">{{item.Percentage | number }} %</div>
+          <div *ngIf="item.Percentage==undefined" >Not Submitted </div>
+        </td>
+        <td class="pt-2 pb-2">
+          <div *ngIf="item.Submitteddate!=undefined">{{item.Submitteddate}}</div>
+          <div *ngIf="item.Submitteddate==undefined" >Not Submitted </div>
+        </td>
+        <td class="pt-2 pb-2" id="stdres1" >
+          <span *ngIf="item.issubmitted" (click)="review(item.Submitteddata)" title="Review">
+            <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-play-fill" fill="currentColor" >
+              <path d="M11.596 8.697l-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/>
+            </svg>
+          </span> 
+          <span class="font-weight-bold" style="cursor: default;" *ngIf="!item.issubmitted">
             -
           </span>
         </td>
       </tr>
     </table>
   </div>
+</div>
+
+<!-- <button  type="button" label="Pdf" (click)="downloadPdf()">Pdf Export</button> -->
+  <!-- <button (click)="downloadPDF1()">Export To PDF</button> -->
 </div>

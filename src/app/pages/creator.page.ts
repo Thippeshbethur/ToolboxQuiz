@@ -17,7 +17,7 @@ export class CreatorPage {
   quizid;
   teachername;
   constructor(private http: HttpClient,private router: Router,private route:ActivatedRoute , private QuizService: QuizService,private _snackBar: MatSnackBar) {
-    this.teachername=localStorage.getItem('teachername');
+    this.teachername=sessionStorage.getItem('teachername');
     if(this.teachername==undefined )
     {
       this.logout();
@@ -30,7 +30,7 @@ export class CreatorPage {
         this.json= {"pages":[{"name":"Page1","title":"Quiz Name","description":"Quiz Description"}]};
       }
       else{        
-          this.json = JSON.parse(localStorage.getItem("editjson"));        
+          this.json = JSON.parse(sessionStorage.getItem("editjson"));        
       }
     }    
   }
@@ -42,7 +42,7 @@ export class CreatorPage {
     var jsonstr=JSON.parse(JSON.stringify(this.json));
     if(this.quizid==undefined){
       
-    jsonstr["teacherid"]=localStorage.getItem("Td");
+    jsonstr["teacherid"]=sessionStorage.getItem("Td");
       
       this.QuizService.addjsondata(JSON.stringify(jsonstr))
       .subscribe(data => {
@@ -81,6 +81,6 @@ export class CreatorPage {
   }
   logout() {
     this.router.navigate(["/"]);
-    localStorage.clear();
+    sessionStorage.clear();
   }
 }

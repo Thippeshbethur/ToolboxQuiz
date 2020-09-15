@@ -15,10 +15,14 @@ export class QuizService {
     dataval;
     constructor(
         private http: HttpClient) { 
-            this.url=this.getconfigkey().subscribe(data=>this.url=data['url']);
+            this.getconfigkey().subscribe(data=>{
+                this.url=data['url']
+                
+            }
+            );
         }
         public getconfigkey():any{            
-            return this.http.get("../../assets/env.json");            
+            return this.http.get("assets/env.json");            
         }
     public getquiz(pageno, pagesize, teacherid): Observable<Quiz> {
         return this.http.get<Quiz>(this.url+"getjsondata?pageNo=" + pageno + "&size=" + pagesize + "&teacherid=" + teacherid, { responseType: 'json' }
@@ -76,9 +80,9 @@ export class QuizService {
         const headers = new HttpHeaders()
             .set('Authorization', 'my-auth-token')
             .set('Content-Type', 'application/json');
-        return this.http.post(this.url+"getquizstatusbyid", obj, {
-            headers: headers
-        });
+            return this.http.post(this.url+"getquizstatusbyid", obj, {
+                headers: headers
+            });            
     }
     public getsubmittedstudentbyid(obj) {
         const headers = new HttpHeaders()

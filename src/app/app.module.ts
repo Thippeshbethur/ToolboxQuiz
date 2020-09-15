@@ -73,7 +73,6 @@ import { from } from 'rxjs';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { library as fontLibrary } from '@fortawesome/fontawesome-svg-core';
 import { faCalendar,  faClock } from '@fortawesome/free-regular-svg-icons';
-import { config } from 'process';
 
 
 fontLibrary.add(

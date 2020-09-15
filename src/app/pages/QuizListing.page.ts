@@ -29,18 +29,18 @@ export class QuizListingpage {
     teacherid
     pageSizeOptions: number[] = [8];
     constructor(private router: Router, private QuizService: QuizService, private serializer: UrlSerializer, public dialog: MatDialog) {
-        this.teachername = localStorage.getItem('teachername');
+        this.teachername = sessionStorage.getItem('teachername');
         if (this.teachername == undefined) {
             this.logout();
         }
         else{
-            this.teacherid=localStorage.getItem("Td");
+            this.teacherid=sessionStorage.getItem("Td");
             this.refreshdata()
         }
     }
     logout() {
         this.router.navigate(["/"]);
-        localStorage.clear();
+        sessionStorage.clear();
     }
     deletequiz(obj: any) {
         this.showloader();
@@ -52,7 +52,7 @@ export class QuizListingpage {
             this.refreshdata();
             //this.animal = result;
         });
-        localStorage.setItem("quizid1",CryptoJS.AES.encrypt(obj, 'q').toString());
+        sessionStorage.setItem("quizid1",CryptoJS.AES.encrypt(obj, 'q').toString());
         this.refreshdata();
     }
     // publishquiz(obj: any) {
@@ -69,14 +69,14 @@ export class QuizListingpage {
                 "Isedit": 1
             }];
         this.QuizService.getquizretdatabyid(JSON.stringify(jsonobj))
-            .subscribe(data => {localStorage.setItem("editjson",JSON.stringify(data))});
+            .subscribe(data => {sessionStorage.setItem("editjson",JSON.stringify(data))});
         setTimeout(() => {
             this.router.navigate(["creator"], { queryParams: { qid: encryptedval } })
         }, 100);
     }
     generatequiz(obj: any) {
 
-        localStorage.setItem('quizid', obj);
+        sessionStorage.setItem('quizid', obj);
         const dialogConfig = new MatDialogConfig();
         dialogConfig.disableClose = true;
         this.dialogRef = this.dialog.open(Genrateurlpage,dialogConfig);
@@ -91,17 +91,18 @@ export class QuizListingpage {
                 "id": obj,
             }];
         this.QuizService.getquizretdatabyid(JSON.stringify(jsonobj))
-            .subscribe(data => localStorage.setItem("jsondata",JSON.stringify(data)));
+            .subscribe(data => sessionStorage.setItem("jsondata",JSON.stringify(data)));
             setTimeout(()=>{
                 const dialogConfig = new MatDialogConfig();
                 dialogConfig.disableClose = true;
                 dialogConfig.width='90%';
-                dialogConfig.height='90%'
+                dialogConfig.height='80%'
+                dialogConfig.direction= "ltr"
 
                 this.dialogRef = this.dialog.open(SurveyPage, dialogConfig);
 
                 this.dialogRef.afterClosed().subscribe(result => {
-                    localStorage.setItem("jsondata","");
+                    sessionStorage.setItem("jsondata","");
                     //this.animal = result;
                 });
             },100)
@@ -125,9 +126,10 @@ export class QuizListingpage {
         this.dialogRef.close();
       }
     openDialog(obj): void {
-        localStorage.setItem("qid",obj);
+        sessionStorage.setItem("qid",obj);
         const dialogConfig = new MatDialogConfig();
         dialogConfig.disableClose = true;
+        // dialogConfig.width = '50%';
         this.dialogRef = this.dialog.open(Publishpage, dialogConfig);
 
         this.dialogRef.afterClosed().subscribe(result => {
@@ -157,7 +159,7 @@ export class QuizListingpage {
     }
     Reports(obj,json)
     {
-        localStorage.setItem("ReviewOrgJson",json);
+        sessionStorage.setItem("ReviewOrgJson",json);
         var encryptedval = CryptoJS.AES.encrypt(obj.trim(), 'q').toString();
         this.router.navigate(["std"], { queryParams: { qid: encryptedval } })
     }

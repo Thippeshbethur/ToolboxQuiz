@@ -13,10 +13,9 @@ import {formatDate } from '@angular/common';
 export class StudentdashboardPage {
     QuizCode;
     curr;
+    status:any;
     constructor(private QuizService: QuizService,private _snackBar: MatSnackBar,private router: Router){        
-        var currentdate=new Date();
-        var currtim=new Date().toLocaleString().toString();
-             this.curr=new Date(currtim).toLocaleString();
+        this.curr=new Date().toISOString();        
     }
     validatequiz(){
         if(this.QuizCode==undefined){
